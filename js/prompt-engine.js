@@ -6,11 +6,34 @@
     commonRules,
     titleMappings,
     abstractPeopleMap,
+    compactSemanticRules,
     concreteMotifs,
   } = window.MakeEyecatchConfig;
 
   function inferCategory(title) {
     return titleMappings.find((mapping) => mapping.test.test(title)) ?? titleMappings[4];
+  }
+
+  function collectSemanticMatches(title, rules) {
+    return rules.filter((rule) => rule.words.some((word) => title.includes(word)));
+  }
+
+  function mergeSemanticSignals(title) {
+    const subjectMatches = collectSemanticMatches(title, compactSemanticRules.subjects);
+    const emotionMatches = collectSemanticMatches(title, compactSemanticRules.emotions);
+    const transformationMatches = collectSemanticMatches(title, compactSemanticRules.transformations);
+    const propMatches = collectSemanticMatches(title, compactSemanticRules.props);
+
+    return {
+      subject: subjectMatches.map((item) => item.subject).find(Boolean) || "",
+      expression: emotionMatches.map((item) => item.expression).find(Boolean) || "",
+      mood: [...emotionMatches, ...transformationMatches, ...propMatches]
+        .map((item) => item.mood)
+        .filter(Boolean)
+        .join(", "),
+      symbol: transformationMatches.map((item) => item.symbol).find(Boolean) || "",
+      prop: propMatches.map((item) => item.prop).find(Boolean) || "",
+    };
   }
 
   function analyzeTitle(title) {
@@ -50,18 +73,21 @@
 
   function buildInterpretation(title) {
     const analysis = analyzeTitle(title);
+    const semantic = mergeSemanticSignals(title);
     const visualSubject = convertToSingleMotif(analysis, title);
     const decomposition = `Interpret the original blog title "${title}" as one clear visual idea, reduce it to a single iconic motif, and express the emotional meaning through one subject rather than multiple elements`;
 
     return {
       originalTitle: title,
       category: analysis.category,
-      subject: analysis.mainConcept,
-      mood: analysis.mood,
-      visualSubject,
-      composition: analysis.expression,
+      subject: semantic.subject || analysis.mainConcept,
+      mood: semantic.mood || analysis.mood,
+      visualSubject: semantic.subject || visualSubject,
+      composition: semantic.expression || analysis.expression,
       isAbstract: analysis.isAbstract,
       decomposition,
+      symbol: semantic.symbol,
+      prop: semantic.prop,
     };
   }
 
@@ -75,6 +101,8 @@
       `Original blog title: "${title}"`,
       interpretation.decomposition,
       interpretation.visualSubject,
+      interpretation.prop,
+      interpretation.symbol,
       interpretation.composition,
       interpretation.mood,
       styleRule.look,

@@ -91,6 +91,70 @@ window.MakeEyecatchConfig = {
     { test: /(孤独|ひとり|孤立)/i, subject: "a single human figure in quiet isolation with a reflective expression, symbolizing solitude" },
     { test: /(危険|危ない|注意)/i, subject: "a single human figure with a guarded expression, symbolizing caution and risk" },
   ],
+  compactSemanticRules: {
+    subjects: [
+      {
+        words: ["江戸美人", "美人", "女人"],
+        subject: "a single elegant Edo-period woman standing calmly in profile",
+      },
+      {
+        words: ["女性", "女"],
+        subject: "a single elegant woman presented as the dominant subject",
+      },
+      {
+        words: ["男性", "男"],
+        subject: "a single composed man presented as the dominant subject",
+      },
+      {
+        words: ["旅人", "旅"],
+        subject: "a single traveler shown as a calm symbolic figure",
+      },
+    ],
+    emotions: [
+      {
+        words: ["喜ぶ", "うれしい", "嬉しい", "満足", "納得"],
+        mood: "quiet satisfaction, internal recognition, refined joy",
+        expression: "subtle restrained joy, calm and intelligent emotional tone",
+      },
+      {
+        words: ["不安", "危険", "危ない", "警戒"],
+        mood: "uneasy caution, restrained tension",
+        expression: "a guarded expression with visible caution",
+      },
+      {
+        words: ["静か", "静けさ", "穏やか"],
+        mood: "calm, still, emotionally quiet",
+        expression: "a restrained and peaceful expression",
+      },
+    ],
+    transformations: [
+      {
+        words: ["切り替わった", "切り替え", "更新", "改善", "進化", "向上", "整った"],
+        symbol: "layered patterns transitioning from rough, slightly misaligned details into refined and harmonious details, symbolizing structural improvement",
+        mood: "structural improvement, refined output, internal upgrade",
+      },
+      {
+        words: ["比較", "違い", "before", "after", "ビフォー", "アフター"],
+        symbol: "a visible contrast between rough and refined qualities within one subject",
+        mood: "clear contrast, analytical improvement",
+      },
+    ],
+    props: [
+      {
+        words: ["きれいな画像", "綺麗な画像", "美しい画像", "画像が作られている"],
+        prop: "holding a small paper or silk sheet and gently observing its refined image quality",
+      },
+      {
+        words: ["モデル", "AI", "ChatGPT", "Gemini"],
+        prop: "a subtle sign of crafted output or refined generated work, without modern devices in view",
+        mood: "quiet awareness of technical refinement and improved generation quality",
+      },
+      {
+        words: ["紙", "原稿", "作品"],
+        prop: "holding or facing a single crafted sheet or finished work",
+      },
+    ],
+  },
   concreteMotifs: [
     { test: /(桜)/i, motif: "a single cherry blossom branch" },
     { test: /(雨|梅雨)/i, motif: "a single rain-soaked scene element" },
