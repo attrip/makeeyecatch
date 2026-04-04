@@ -23,11 +23,8 @@
     categoryOutput: document.getElementById("category-output"),
     metaBadges: document.getElementById("meta-badges"),
     customStyleLabelInput: document.getElementById("custom-style-label"),
-    customStyleLookInput: document.getElementById("custom-style-look"),
-    customStyleTextureInput: document.getElementById("custom-style-texture"),
-    customStyleColorInput: document.getElementById("custom-style-color"),
-    customStyleMoodInput: document.getElementById("custom-style-mood"),
-    customStyleNegativeInput: document.getElementById("custom-style-negative"),
+    customStyleBaseSelect: document.getElementById("custom-style-base"),
+    customStyleNoteInput: document.getElementById("custom-style-note"),
   };
 
   let styleRules = rebuildStyleRules();
@@ -76,18 +73,18 @@
     Object.entries(customStyles).forEach(([key, rule]) => {
       const chip = document.createElement("div");
       chip.className = "saved-style-chip";
-      chip.innerHTML = `<span>${rule.label}</span><button type="button" data-style-key="${key}">削除</button>`;
+      const detail = rule.baseStyleKey && styleRules[rule.baseStyleKey]
+        ? `${rule.label} / ${styleRules[rule.baseStyleKey].label}`
+        : rule.label;
+      chip.innerHTML = `<span>${detail}</span><button type="button" data-style-key="${key}">削除</button>`;
       elements.customStyleList.appendChild(chip);
     });
   }
 
   function clearCustomStyleForm() {
     elements.customStyleLabelInput.value = "";
-    elements.customStyleLookInput.value = "";
-    elements.customStyleTextureInput.value = "";
-    elements.customStyleColorInput.value = "";
-    elements.customStyleMoodInput.value = "";
-    elements.customStyleNegativeInput.value = "";
+    elements.customStyleBaseSelect.value = "ukiyoe";
+    elements.customStyleNoteInput.value = "";
   }
 
   function readFormState() {
@@ -122,20 +119,27 @@
 
   function saveCustomStyle() {
     const label = elements.customStyleLabelInput.value.trim();
-    const look = elements.customStyleLookInput.value.trim();
-    const texture = elements.customStyleTextureInput.value.trim();
-    const color = elements.customStyleColorInput.value.trim();
-    const mood = elements.customStyleMoodInput.value.trim();
-    const negative = elements.customStyleNegativeInput.value.trim();
+    const baseStyleKey = elements.customStyleBaseSelect.value;
+    const note = elements.customStyleNoteInput.value.trim();
 
-    if (!label || !look || !texture || !color || !mood || !negative) {
-      window.alert("Style名と各ルールをすべて入れてください。");
+    if (!label) {
+      window.alert("Style名を入れてください。");
       return;
     }
 
     const key = `custom-${slugifyStyleLabel(label)}`;
     const customStyles = readCustomStyles();
-    customStyles[key] = { label, look, texture, color, mood, negative };
+    const baseStyle = styleRules[baseStyleKey];
+    customStyles[key] = {
+      label,
+      baseStyleKey,
+      note,
+      look: baseStyle.look,
+      texture: note ? `${baseStyle.texture}, ${note}` : baseStyle.texture,
+      color: baseStyle.color,
+      mood: note ? `${baseStyle.mood}, ${note}` : baseStyle.mood,
+      negative: baseStyle.negative,
+    };
     writeCustomStyles(customStyles);
     styleRules = rebuildStyleRules();
     populateStyleSelect();

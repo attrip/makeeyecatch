@@ -78,7 +78,7 @@
       interpretation.composition,
       interpretation.mood,
       styleRule.look,
-      sizeRule.prompt,
+      styleRule.composition || sizeRule.prompt,
       styleRule.texture,
       styleRule.color,
       styleRule.mood,

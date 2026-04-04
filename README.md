@@ -16,6 +16,7 @@
 - `ChatGPT` / `Gemini` をすぐ開ける
 - 選択状態と最後のタイトルを `localStorage` に保存する
 - 追加した Style を cookie に保存して再利用できる
+- カスタム Style は `Style名 + ベースStyle + 補足メモ` だけで登録できる
 
 ## 画面構成
 

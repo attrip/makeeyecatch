@@ -17,6 +17,7 @@ window.MakeEyecatchConfig = {
     ukiyoe: {
       label: "浮世絵",
       look: "ukiyo-e woodblock print style, flat perspective, strong ink outlines, poetic Japanese storytelling",
+      composition: "subject positioned slightly right of center, wide empty space on the left side, clear margin on all edges, no border, no frame, no cropping, no cut edges, balanced composition with safe padding",
       texture: "washi paper texture, slight print misalignment, traditional ink feel",
       color: "muted traditional Japanese colors, restrained contrast, poetic and timeless mood",
       mood: "calm intensity, symbolic expression, handcrafted presence",
@@ -25,6 +26,7 @@ window.MakeEyecatchConfig = {
     simple70s: {
       label: "70sシンプル",
       look: "simple 1970s editorial illustration, bold flat shapes, minimal poster design, iconic silhouette-driven composition",
+      composition: "",
       texture: "subtle paper grain, light vintage print texture, clean analog imperfection",
       color: "warm retro palette, burnt orange, mustard, olive, cream, restrained contrast",
       mood: "graphic clarity, quiet confidence, simple but memorable presence",

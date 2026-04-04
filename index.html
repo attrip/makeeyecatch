@@ -59,24 +59,15 @@
               <input id="custom-style-label" class="text-input" type="text" placeholder="例: 水彩ポスター" />
             </div>
             <div class="field-group">
-              <label class="field-label" for="custom-style-look">見た目</label>
-              <textarea id="custom-style-look" class="textarea compact-textarea" rows="2" placeholder="例: watercolor poster illustration, soft edges, bold composition"></textarea>
+              <label class="field-label" for="custom-style-base">ベースStyle</label>
+              <select id="custom-style-base" class="select compact-select">
+                <option value="ukiyoe">浮世絵</option>
+                <option value="simple70s">70sシンプル</option>
+              </select>
             </div>
             <div class="field-group">
-              <label class="field-label" for="custom-style-texture">質感</label>
-              <textarea id="custom-style-texture" class="textarea compact-textarea" rows="2" placeholder="例: paper texture, watercolor bloom, hand-painted irregularity"></textarea>
-            </div>
-            <div class="field-group">
-              <label class="field-label" for="custom-style-color">色</label>
-              <textarea id="custom-style-color" class="textarea compact-textarea" rows="2" placeholder="例: airy colors, muted pastel palette, soft tonal contrast"></textarea>
-            </div>
-            <div class="field-group">
-              <label class="field-label" for="custom-style-mood">雰囲気</label>
-              <textarea id="custom-style-mood" class="textarea compact-textarea" rows="2" placeholder="例: calm, elegant, emotionally light"></textarea>
-            </div>
-            <div class="field-group">
-              <label class="field-label" for="custom-style-negative">NGルール</label>
-              <textarea id="custom-style-negative" class="textarea compact-textarea" rows="2" placeholder="例: no photorealism, no heavy outlines, no multiple subjects"></textarea>
+              <label class="field-label" for="custom-style-note">補足メモ</label>
+              <textarea id="custom-style-note" class="textarea compact-textarea" rows="2" placeholder="例: 和紙感を強く / もっと暗め / ポスター感を強める"></textarea>
             </div>
             <div class="inline-actions">
               <button id="save-style-button" class="primary-button compact-button" type="button">保存する</button>
