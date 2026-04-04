@@ -13,7 +13,7 @@ const sizeRules = {
   },
 };
 
-const styleRules = {
+const baseStyleRules = {
   ukiyoe: {
     label: "浮世絵",
     look: "ukiyo-e woodblock print style, flat perspective, strong ink outlines, poetic Japanese storytelling",
@@ -31,6 +31,7 @@ const styleRules = {
     negative: "no photorealism, no glossy 3D rendering, no anime style, no excessive detail, no multiple subjects",
   },
 };
+let styleRules = { ...baseStyleRules };
 
 const textRules = {
   noText: {
@@ -209,6 +210,17 @@ const compositionOutput = document.getElementById("composition-output");
 const categoryOutput = document.getElementById("category-output");
 const metaBadges = document.getElementById("meta-badges");
 const storageKey = "makeeyecatch.settings.v1";
+const customStylesCookieKey = "makeeyecatch_custom_styles";
+const addStyleButton = document.getElementById("add-style-button");
+const customStylePanel = document.getElementById("custom-style-panel");
+const saveStyleButton = document.getElementById("save-style-button");
+const customStyleList = document.getElementById("custom-style-list");
+const customStyleLabelInput = document.getElementById("custom-style-label");
+const customStyleLookInput = document.getElementById("custom-style-look");
+const customStyleTextureInput = document.getElementById("custom-style-texture");
+const customStyleColorInput = document.getElementById("custom-style-color");
+const customStyleMoodInput = document.getElementById("custom-style-mood");
+const customStyleNegativeInput = document.getElementById("custom-style-negative");
 
 function selectedValue(name) {
   return document.querySelector(`input[name="${name}"]:checked`)?.value;
@@ -230,6 +242,116 @@ function renderBadges(items) {
   });
 }
 
+function slugifyStyleLabel(label) {
+  return label
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "") || `custom-${Date.now()}`;
+}
+
+function setCookie(name, value, days = 365) {
+  const expires = new Date(Date.now() + days * 86400000).toUTCString();
+  document.cookie = `${name}=${encodeURIComponent(value)}; expires=${expires}; path=/; SameSite=Lax`;
+}
+
+function getCookie(name) {
+  const prefix = `${name}=`;
+  const row = document.cookie.split("; ").find((entry) => entry.startsWith(prefix));
+  return row ? decodeURIComponent(row.slice(prefix.length)) : "";
+}
+
+function readCustomStyles() {
+  const raw = getCookie(customStylesCookieKey);
+  if (!raw) return {};
+  try {
+    const parsed = JSON.parse(raw);
+    return parsed && typeof parsed === "object" ? parsed : {};
+  } catch {
+    return {};
+  }
+}
+
+function writeCustomStyles(customStyles) {
+  setCookie(customStylesCookieKey, JSON.stringify(customStyles));
+}
+
+function rebuildStyleRules() {
+  styleRules = { ...baseStyleRules, ...readCustomStyles() };
+}
+
+function populateStyleSelect() {
+  const currentValue = styleSelect.value;
+  styleSelect.innerHTML = "";
+  Object.entries(styleRules).forEach(([key, rule]) => {
+    const option = document.createElement("option");
+    option.value = key;
+    option.textContent = rule.label;
+    styleSelect.appendChild(option);
+  });
+  styleSelect.value = styleRules[currentValue] ? currentValue : "ukiyoe";
+}
+
+function renderCustomStyleList() {
+  const customStyles = readCustomStyles();
+  customStyleList.innerHTML = "";
+  Object.entries(customStyles).forEach(([key, rule]) => {
+    const chip = document.createElement("div");
+    chip.className = "saved-style-chip";
+    chip.innerHTML = `<span>${rule.label}</span><button type="button" data-style-key="${key}">削除</button>`;
+    customStyleList.appendChild(chip);
+  });
+}
+
+function clearCustomStyleForm() {
+  customStyleLabelInput.value = "";
+  customStyleLookInput.value = "";
+  customStyleTextureInput.value = "";
+  customStyleColorInput.value = "";
+  customStyleMoodInput.value = "";
+  customStyleNegativeInput.value = "";
+}
+
+function toggleCustomStylePanel() {
+  customStylePanel.hidden = !customStylePanel.hidden;
+}
+
+function saveCustomStyle() {
+  const label = customStyleLabelInput.value.trim();
+  const look = customStyleLookInput.value.trim();
+  const texture = customStyleTextureInput.value.trim();
+  const color = customStyleColorInput.value.trim();
+  const mood = customStyleMoodInput.value.trim();
+  const negative = customStyleNegativeInput.value.trim();
+
+  if (!label || !look || !texture || !color || !mood || !negative) {
+    window.alert("Style名と各ルールをすべて入れてください。");
+    return;
+  }
+
+  const key = `custom-${slugifyStyleLabel(label)}`;
+  const customStyles = readCustomStyles();
+  customStyles[key] = { label, look, texture, color, mood, negative };
+  writeCustomStyles(customStyles);
+  rebuildStyleRules();
+  populateStyleSelect();
+  renderCustomStyleList();
+  styleSelect.value = key;
+  customStylePanel.hidden = true;
+  clearCustomStyleForm();
+  saveState();
+}
+
+function deleteCustomStyle(key) {
+  const customStyles = readCustomStyles();
+  delete customStyles[key];
+  writeCustomStyles(customStyles);
+  rebuildStyleRules();
+  populateStyleSelect();
+  renderCustomStyleList();
+  saveState();
+}
+
 function readFormState() {
   return {
     selectedSize: selectedValue("size") ?? "square",
@@ -245,13 +367,16 @@ function saveState() {
 }
 
 function restoreState() {
+  rebuildStyleRules();
+  populateStyleSelect();
+  renderCustomStyleList();
   const raw = window.localStorage.getItem(storageKey);
   if (!raw) return;
   try {
     const saved = JSON.parse(raw);
     setCheckedValue("size", saved.selectedSize ?? "square");
     setCheckedValue("textPolicy", saved.textMode ?? "noText");
-    styleSelect.value = saved.selectedStyle ?? "ukiyoe";
+    styleSelect.value = styleRules[saved.selectedStyle] ? saved.selectedStyle : "ukiyoe";
     titleInput.value = saved.lastTitle ?? "";
   } catch {
     window.localStorage.removeItem(storageKey);
@@ -316,6 +441,13 @@ async function copyAndOpen(url) {
 
 restoreState();
 
+addStyleButton.addEventListener("click", toggleCustomStylePanel);
+saveStyleButton.addEventListener("click", saveCustomStyle);
+customStyleList.addEventListener("click", (event) => {
+  const button = event.target.closest("button[data-style-key]");
+  if (!button) return;
+  deleteCustomStyle(button.dataset.styleKey);
+});
 generateButton.addEventListener("click", generate);
 copyButton.addEventListener("click", copyPrompt);
 chatgptButton.addEventListener("click", () => copyAndOpen("https://chatgpt.com/"));

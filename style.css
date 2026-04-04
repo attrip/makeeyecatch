@@ -117,6 +117,7 @@ h1 {
 }
 
 .select,
+.text-input,
 .textarea,
 .primary-button,
 .secondary-button {
@@ -124,6 +125,7 @@ h1 {
 }
 
 .select,
+.text-input,
 .textarea {
   width: 100%;
   border: 1px solid var(--line);
@@ -135,6 +137,11 @@ h1 {
 .select {
   height: 50px;
   padding: 0 16px;
+}
+
+.text-input {
+  height: 46px;
+  padding: 0 14px;
 }
 
 .textarea {
@@ -150,6 +157,12 @@ h1 {
   gap: 12px;
 }
 
+.inline-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
 .primary-button,
 .secondary-button {
   min-height: 48px;
@@ -157,6 +170,12 @@ h1 {
   border-radius: 999px;
   border: 1px solid transparent;
   cursor: pointer;
+}
+
+.compact-button {
+  min-height: 40px;
+  padding: 0 14px;
+  border-radius: 14px;
 }
 
 .primary-button {
@@ -173,6 +192,45 @@ h1 {
 .secondary-button:hover,
 .primary-button:hover {
   transform: translateY(-1px);
+}
+
+.custom-style-panel {
+  display: grid;
+  gap: 14px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: rgba(255, 252, 247, 0.7);
+}
+
+.compact-textarea {
+  min-height: 72px;
+}
+
+.saved-style-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.saved-style-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 36px;
+  padding: 0 10px 0 12px;
+  border-radius: 999px;
+  background: rgba(31, 26, 22, 0.06);
+  border: 1px solid var(--line);
+  font-size: 0.86rem;
+}
+
+.saved-style-chip button {
+  border: 0;
+  background: transparent;
+  color: var(--accent);
+  cursor: pointer;
+  font: inherit;
 }
 
 .output {

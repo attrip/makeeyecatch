@@ -50,6 +50,39 @@
             <option value="ukiyoe">浮世絵</option>
             <option value="simple70s">70sシンプル</option>
           </select>
+          <div class="inline-actions">
+            <button id="add-style-button" class="secondary-button compact-button" type="button">Styleを追加</button>
+          </div>
+          <div id="custom-style-panel" class="custom-style-panel" hidden>
+            <div class="field-group">
+              <label class="field-label" for="custom-style-label">Style名</label>
+              <input id="custom-style-label" class="text-input" type="text" placeholder="例: 水彩ポスター" />
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="custom-style-look">見た目</label>
+              <textarea id="custom-style-look" class="textarea compact-textarea" rows="2" placeholder="例: watercolor poster illustration, soft edges, bold composition"></textarea>
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="custom-style-texture">質感</label>
+              <textarea id="custom-style-texture" class="textarea compact-textarea" rows="2" placeholder="例: paper texture, watercolor bloom, hand-painted irregularity"></textarea>
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="custom-style-color">色</label>
+              <textarea id="custom-style-color" class="textarea compact-textarea" rows="2" placeholder="例: airy colors, muted pastel palette, soft tonal contrast"></textarea>
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="custom-style-mood">雰囲気</label>
+              <textarea id="custom-style-mood" class="textarea compact-textarea" rows="2" placeholder="例: calm, elegant, emotionally light"></textarea>
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="custom-style-negative">NGルール</label>
+              <textarea id="custom-style-negative" class="textarea compact-textarea" rows="2" placeholder="例: no photorealism, no heavy outlines, no multiple subjects"></textarea>
+            </div>
+            <div class="inline-actions">
+              <button id="save-style-button" class="primary-button compact-button" type="button">保存する</button>
+            </div>
+          </div>
+          <div id="custom-style-list" class="saved-style-list"></div>
         </div>
 
         <div class="field-group">
