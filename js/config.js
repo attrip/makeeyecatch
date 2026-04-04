@@ -17,7 +17,7 @@ window.MakeEyecatchConfig = {
     ukiyoe: {
       label: "浮世絵",
       look: "ukiyo-e woodblock print style, flat perspective, strong ink outlines, poetic Japanese storytelling",
-      composition: "subject positioned slightly right of center, wide empty space on the left side, clear margin on all edges, no border, no frame, no cropping, no cut edges, balanced composition with safe padding",
+      composition: "subject positioned slightly right of center, wide empty space on the left side, clear clean margin on all edges, leave visible breathing room around the entire artwork, keep all elements fully inside the canvas, no visible outer border, no frame lines near the edges, no rectangular print frame, no border, no frame, no cropping, no cut edges, balanced composition with safe padding",
       texture: "washi paper texture, slight print misalignment, traditional ink feel",
       color: "muted traditional Japanese colors, restrained contrast, poetic and timeless mood",
       mood: "calm intensity, symbolic expression, handcrafted presence",
