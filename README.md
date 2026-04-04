@@ -15,7 +15,7 @@
 - 完成した英語プロンプトをコピーできる
 - `ChatGPT` / `Gemini` をすぐ開ける
 - 選択状態と最後のタイトルを `localStorage` に保存する
-- ページ上部にアイキャッチ見本画像を表示する
+- 追加した Style を cookie に保存して再利用できる
 
 ## 画面構成
 
@@ -46,10 +46,14 @@
   画面本体
 - [style.css](/Users/flex-pc0705/makeeyecatch/style.css)
   見た目
-- [app.js](/Users/flex-pc0705/makeeyecatch/app.js)
-  タイトル解釈とプロンプト生成ロジック
-- [assets/eyecatch-preview.svg](/Users/flex-pc0705/makeeyecatch/assets/eyecatch-preview.svg)
-  ページ上部のアイキャッチ見本
+- [js/config.js](/Users/flex-pc0705/makeeyecatch/js/config.js)
+  ルールと定数
+- [js/prompt-engine.js](/Users/flex-pc0705/makeeyecatch/js/prompt-engine.js)
+  タイトル解釈とプロンプト生成
+- [js/storage.js](/Users/flex-pc0705/makeeyecatch/js/storage.js)
+  localStorage と cookie 保存
+- [js/ui.js](/Users/flex-pc0705/makeeyecatch/js/ui.js)
+  DOM 操作とイベント登録
 - [.github/workflows/pages.yml](/Users/flex-pc0705/makeeyecatch/.github/workflows/pages.yml)
   GitHub Pages デプロイ設定
 
