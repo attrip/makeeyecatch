@@ -149,14 +149,17 @@ function convertToSingleMotif(analysis, title) {
 function buildInterpretation(title) {
   const analysis = analyzeTitle(title);
   const visualSubject = convertToSingleMotif(analysis, title);
+  const decomposition = `Interpret the original blog title "${title}" as one clear visual idea, reduce it to a single iconic motif, and express the emotional meaning through one subject rather than multiple elements`;
 
   return {
+    originalTitle: title,
     category: analysis.category,
     subject: analysis.mainConcept,
     mood: analysis.mood,
     visualSubject,
     composition: analysis.expression,
     isAbstract: analysis.isAbstract,
+    decomposition,
   };
 }
 
@@ -167,6 +170,8 @@ function buildPrompt({ title, size, style, textPolicy }) {
   const interpretation = buildInterpretation(title);
 
   const parts = [
+    `Original blog title: "${title}"`,
+    interpretation.decomposition,
     interpretation.visualSubject,
     interpretation.composition,
     interpretation.mood,
@@ -196,6 +201,7 @@ const copyButton = document.getElementById("copy-button");
 const chatgptButton = document.getElementById("chatgpt-button");
 const geminiButton = document.getElementById("gemini-button");
 const promptOutput = document.getElementById("prompt-output");
+const titleOutput = document.getElementById("title-output");
 const subjectOutput = document.getElementById("subject-output");
 const motifOutput = document.getElementById("motif-output");
 const moodOutput = document.getElementById("mood-output");
@@ -267,6 +273,7 @@ function generate() {
   });
 
   promptOutput.textContent = result.prompt;
+  titleOutput.textContent = result.interpretation.originalTitle;
   subjectOutput.textContent = result.interpretation.subject;
   motifOutput.textContent = result.interpretation.visualSubject;
   moodOutput.textContent = result.interpretation.mood;

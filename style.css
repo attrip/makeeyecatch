@@ -26,13 +26,28 @@ body {
 }
 
 .app-shell {
-  width: min(1120px, calc(100% - 32px));
+  width: min(960px, calc(100% - 24px));
   margin: 0 auto;
-  padding: 48px 0 64px;
+  padding: 32px 0 56px;
 }
 
 .hero {
-  margin-bottom: 24px;
+  margin-bottom: 16px;
+}
+
+.hero-image-wrap {
+  margin-top: 14px;
+  overflow: hidden;
+  border-radius: 24px;
+  border: 1px solid var(--line);
+  box-shadow: var(--shadow);
+}
+
+.hero-image {
+  display: block;
+  width: 100%;
+  height: auto;
+  background: var(--panel-strong);
 }
 
 .eyebrow {
@@ -51,17 +66,10 @@ h3 {
 }
 
 h1 {
-  font-family: "Cormorant Garamond", serif;
-  font-size: clamp(2.2rem, 6vw, 4.2rem);
-  line-height: 0.95;
-}
-
-.hero-copy {
-  max-width: 720px;
-  margin: 14px 0 0;
-  font-size: 1rem;
-  line-height: 1.8;
-  color: var(--muted);
+  font-family: "Zen Kaku Gothic New", sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.1rem, 2vw, 1.5rem);
+  line-height: 1.2;
 }
 
 .panel {
@@ -74,8 +82,8 @@ h1 {
 
 .controls {
   display: grid;
-  gap: 22px;
-  padding: 24px;
+  gap: 18px;
+  padding: 20px;
 }
 
 .field-group {
@@ -146,9 +154,9 @@ h1 {
 
 .textarea {
   resize: vertical;
-  min-height: 120px;
-  padding: 16px;
-  line-height: 1.7;
+  min-height: 96px;
+  padding: 14px 16px;
+  line-height: 1.6;
 }
 
 .actions {
@@ -183,8 +191,8 @@ h1 {
 }
 
 .output {
-  margin-top: 24px;
-  padding: 24px;
+  margin-top: 18px;
+  padding: 20px;
 }
 
 .output-header {
@@ -213,17 +221,21 @@ h1 {
 
 .output-grid {
   display: grid;
-  grid-template-columns: 1.5fr 1fr;
-  gap: 18px;
-  margin-top: 18px;
+  grid-template-columns: 1.7fr 1fr;
+  gap: 14px;
+  margin-top: 14px;
 }
 
 .output-card {
   min-width: 0;
-  padding: 20px;
+  padding: 16px;
   border: 1px solid var(--line);
   border-radius: 20px;
   background: rgba(255, 252, 247, 0.75);
+}
+
+.output-card h3 {
+  font-size: 0.95rem;
 }
 
 .code-block {

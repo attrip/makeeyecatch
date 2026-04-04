@@ -1,0 +1,21 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1200" height="630" fill="#F3ECDE"/>
+  <rect x="38" y="38" width="1124" height="554" rx="28" fill="#FFF8EF" stroke="#D8C7B2"/>
+  <circle cx="921" cy="184" r="122" fill="#D77B4F"/>
+  <circle cx="899" cy="184" r="86" fill="#F1C27D"/>
+  <path d="M286 471C349.925 471 401.75 419.175 401.75 355.25C401.75 291.325 349.925 239.5 286 239.5C222.075 239.5 170.25 291.325 170.25 355.25C170.25 419.175 222.075 471 286 471Z" fill="#1F1A16"/>
+  <path d="M285.5 420C325.541 420 358 387.541 358 347.5C358 307.459 325.541 275 285.5 275C245.459 275 213 307.459 213 347.5C213 387.541 245.459 420 285.5 420Z" fill="#FFF8EF"/>
+  <path d="M279 331C290.598 331 300 321.598 300 310C300 298.402 290.598 289 279 289C267.402 289 258 298.402 258 310C258 321.598 267.402 331 279 331Z" fill="#1F1A16"/>
+  <path d="M348 334C359.598 334 369 324.598 369 313C369 301.402 359.598 292 348 292C336.402 292 327 301.402 327 313C327 324.598 336.402 334 348 334Z" fill="#1F1A16"/>
+  <path d="M250 379C279.466 398.877 314.528 404.57 349.625 395.125" stroke="#1F1A16" stroke-width="14" stroke-linecap="round"/>
+  <path d="M687 175L759 126L845 154L807 239L717 244L687 175Z" fill="#6F7B4C"/>
+  <path d="M750 129L807 239" stroke="#FFF8EF" stroke-width="12" stroke-linecap="round"/>
+  <path d="M688 175L845 154" stroke="#FFF8EF" stroke-width="12" stroke-linecap="round"/>
+  <path d="M722 295H999" stroke="#1F1A16" stroke-width="14" stroke-linecap="round"/>
+  <path d="M722 348H1031" stroke="#1F1A16" stroke-width="14" stroke-linecap="round"/>
+  <path d="M722 401H956" stroke="#1F1A16" stroke-width="14" stroke-linecap="round"/>
+  <rect x="722" y="453" width="162" height="48" rx="24" fill="#1F1A16"/>
+  <path d="M488 164C523.346 115.48 579.01 85 641.796 85C713.901 85 776.626 125.174 808.907 184.341" stroke="#D77B4F" stroke-width="18" stroke-linecap="round"/>
+  <path d="M459 214C500.502 153.623 567.033 116 641.796 116C699.232 116 751.849 138.196 790.992 174.5" stroke="#6F7B4C" stroke-width="10" stroke-linecap="round"/>
+  <text x="722" y="95" fill="#1F1A16" font-family="Arial, sans-serif" font-size="26" font-weight="700">Eyecatch Prompt Generator</text>
+</svg>
