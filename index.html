@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Make Eyecatch Prompt Builder</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Cormorant+Garamond:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="hero">
+        <p class="eyebrow">Blog Title to Image Prompt</p>
+        <h1>アイキャッチ用プロンプトジェネレーター</h1>
+        <p class="hero-copy">
+          ブログタイトルを元に、スタイルとサイズに合わせた画像生成プロンプトを組み立てます。
+        </p>
+      </section>
+
+      <section class="panel controls">
+        <div class="field-group">
+          <span class="field-label">画像サイズ</span>
+          <div class="chip-row" id="size-options">
+            <label class="chip">
+              <input type="radio" name="size" value="square" checked />
+              <span>正方形 1:1</span>
+            </label>
+            <label class="chip">
+              <input type="radio" name="size" value="wide" />
+              <span>16:9</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" for="style-select">画像Style</label>
+          <select id="style-select" class="select">
+            <option value="ukiyoe">浮世絵</option>
+            <option value="simple70s">70sシンプル</option>
+          </select>
+        </div>
+
+        <div class="field-group">
+          <span class="field-label">文字の扱い</span>
+          <div class="chip-row">
+            <label class="chip">
+              <input type="radio" name="textPolicy" value="noText" checked />
+              <span>文字なし</span>
+            </label>
+            <label class="chip">
+              <input type="radio" name="textPolicy" value="unspecified" />
+              <span>未指定</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label" for="title-input">ブログタイトル</label>
+          <textarea
+            id="title-input"
+            class="textarea"
+            rows="4"
+            placeholder="例: 4人の役割でAI運用を整理する"
+          ></textarea>
+        </div>
+
+        <div class="actions">
+          <button id="generate-button" class="primary-button" type="button">生成する</button>
+          <button id="copy-button" class="secondary-button" type="button">コピー</button>
+          <button id="chatgpt-button" class="secondary-button" type="button">ChatGPTで開く</button>
+          <button id="gemini-button" class="secondary-button" type="button">Geminiで開く</button>
+        </div>
+      </section>
+
+      <section class="panel output">
+        <div class="output-header">
+          <div>
+            <p class="eyebrow">Generated</p>
+            <h2>完成プロンプト</h2>
+          </div>
+          <div id="meta-badges" class="meta-badges"></div>
+        </div>
+
+        <div class="output-grid">
+          <article class="output-card">
+            <h3>Prompt</h3>
+            <pre id="prompt-output" class="code-block">タイトルを入れて生成してください。</pre>
+          </article>
+
+          <article class="output-card">
+            <h3>解釈メモ</h3>
+            <dl class="summary-list">
+              <div>
+                <dt>主題</dt>
+                <dd id="subject-output">未生成</dd>
+              </div>
+              <div>
+                <dt>1モチーフ</dt>
+                <dd id="motif-output">未生成</dd>
+              </div>
+              <div>
+                <dt>雰囲気</dt>
+                <dd id="mood-output">未生成</dd>
+              </div>
+              <div>
+                <dt>構図</dt>
+                <dd id="composition-output">未生成</dd>
+              </div>
+              <div>
+                <dt>分類</dt>
+                <dd id="category-output">未生成</dd>
+              </div>
+            </dl>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
