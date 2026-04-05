@@ -3,29 +3,29 @@ window.MakeEyecatchConfig = {
     square: {
       label: "正方形",
       ratio: "1:1",
-      prompt: "centered composition, iconic single subject, balanced negative space, optimized for square format",
+      prompt: "square 1:1 canvas, centered composition, iconic single subject, balanced negative space, optimized for a square image area",
       compositionJa: "中央配置を基調にした単焦点構図",
     },
     wide: {
       label: "16:9",
       ratio: "16:9",
-      prompt: "wide cinematic composition, one dominant subject, room for subtle background storytelling, optimized for 16:9 frame",
+      prompt: "landscape 16:9 canvas, wide horizontal composition, one dominant subject, generous negative space, optimized for a true 16:9 image area",
       compositionJa: "主役を1つに絞った横長構図",
     },
   },
   baseStyleRules: {
     ukiyoe: {
       label: "浮世絵",
-      look: "ukiyo-e woodblock print style, flat perspective, strong ink outlines, poetic Japanese storytelling",
+      look: "with subtle ukiyo-e woodblock print cues, ukiyo-e atmosphere, Edo-period aesthetics, flat perspective, strong ink outlines, delicate linework, poetic Japanese storytelling",
       composition: "subject positioned slightly right of center, wide empty space on the left side, clear clean margin on all edges, leave visible breathing room around the entire artwork, keep all elements fully inside the canvas, no visible outer border, no frame lines near the edges, no rectangular print frame, no border, no frame, no cropping, no cut edges, balanced composition with safe padding",
-      texture: "washi paper texture, slight print misalignment, traditional ink feel",
-      color: "muted traditional Japanese colors, restrained contrast, poetic and timeless mood",
+      texture: "woodblock print texture, washi paper texture, subtle washi roughness, slight print misalignment, traditional ink feel",
+      color: "muted traditional Japanese colors, calm Japanese palette, restrained contrast, poetic and timeless mood",
       mood: "calm intensity, symbolic expression, handcrafted presence",
       negative: "no photorealism, no glossy 3D rendering, no modern objects, no complex background, no multiple subjects",
     },
     simple70s: {
       label: "70sシンプル",
-      look: "simple 1970s editorial illustration, bold flat shapes, minimal poster design, iconic silhouette-driven composition",
+      look: "with subtle 1970s editorial illustration cues, bold flat shapes, minimal poster design, iconic silhouette-driven composition",
       composition: "",
       texture: "subtle paper grain, light vintage print texture, clean analog imperfection",
       color: "warm retro palette, burnt orange, mustard, olive, cream, restrained contrast",
@@ -94,6 +94,10 @@ window.MakeEyecatchConfig = {
   compactSemanticRules: {
     subjects: [
       {
+        words: ["Codex", "Claude Code", "AIブログ", "連載", "3連載"],
+        subject: "a single symbolic human figure shaped by abstract intelligence motifs, with layered flowing forms integrated into one body to imply a crafted three-part editorial structure",
+      },
+      {
         words: ["江戸美人", "美人", "女人"],
         subject: "a single elegant Edo-period woman standing calmly in profile",
       },
@@ -129,6 +133,16 @@ window.MakeEyecatchConfig = {
     ],
     transformations: [
       {
+        words: ["3連載", "三連載", "連載", "シリーズ"],
+        symbol: "three nested flowing layers fused into one coherent subject, symbolizing a designed multi-part series without separating into multiple objects",
+        mood: "editorial structure, cohesive sequencing, designed continuity",
+      },
+      {
+        words: ["設計", "構成", "整理", "プロンプト"],
+        symbol: "refined internal patterning that suggests planning, orchestration, and intentional construction within one subject",
+        mood: "designed precision, editorial intent, controlled generation",
+      },
+      {
         words: ["切り替わった", "切り替え", "更新", "改善", "進化", "向上", "整った"],
         symbol: "layered patterns transitioning from rough, slightly misaligned details into refined and harmonious details, symbolizing structural improvement",
         mood: "structural improvement, refined output, internal upgrade",
@@ -148,6 +162,11 @@ window.MakeEyecatchConfig = {
         words: ["モデル", "AI", "ChatGPT", "Gemini"],
         prop: "a subtle sign of crafted output or refined generated work, without modern devices in view",
         mood: "quiet awareness of technical refinement and improved generation quality",
+      },
+      {
+        words: ["Codex", "Claude Code", "プロンプト"],
+        prop: "a subtle sign of crafted output or refined generated work, expressed as deliberate handmade refinement rather than tools or devices",
+        mood: "quiet technical refinement, deliberate authorship, improved generative quality",
       },
       {
         words: ["紙", "原稿", "作品"],

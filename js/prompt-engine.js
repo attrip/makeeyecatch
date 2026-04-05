@@ -99,19 +99,21 @@
 
     const parts = [
       `Original blog title: "${title}"`,
+      `Output as a ${sizeRule.ratio} image`,
       interpretation.decomposition,
       interpretation.visualSubject,
       interpretation.prop,
       interpretation.symbol,
       interpretation.composition,
       interpretation.mood,
+      sizeRule.prompt,
+      ...commonRules,
+      textRule.prompt,
+      styleRule.composition,
       styleRule.look,
-      styleRule.composition || sizeRule.prompt,
       styleRule.texture,
       styleRule.color,
       styleRule.mood,
-      ...commonRules,
-      textRule.prompt,
       styleRule.negative,
     ].filter(Boolean);
 
