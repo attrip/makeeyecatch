@@ -207,6 +207,13 @@ h1 {
   background: rgba(255, 252, 247, 0.7);
 }
 
+.helper-text {
+  margin: 0;
+  font-size: 0.86rem;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
 .compact-textarea {
   min-height: 72px;
 }

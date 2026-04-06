@@ -41,6 +41,10 @@
               <input type="radio" name="size" value="wide" />
               <span>16:9</span>
             </label>
+            <label class="chip">
+              <input type="radio" name="size" value="portrait" />
+              <span>縦長 4:5</span>
+            </label>
           </div>
         </div>
 
@@ -54,20 +58,34 @@
             <button id="add-style-button" class="secondary-button compact-button" type="button">Styleを追加</button>
           </div>
           <div id="custom-style-panel" class="custom-style-panel" hidden>
+            <p id="custom-style-source" class="helper-text"></p>
             <div class="field-group">
               <label class="field-label" for="custom-style-label">Style名</label>
               <input id="custom-style-label" class="text-input" type="text" placeholder="例: 水彩ポスター" />
             </div>
             <div class="field-group">
-              <label class="field-label" for="custom-style-base">ベースStyle</label>
-              <select id="custom-style-base" class="select compact-select">
-                <option value="ukiyoe">浮世絵</option>
-                <option value="simple70s">70sシンプル</option>
-              </select>
+              <label class="field-label" for="custom-style-look">Look</label>
+              <textarea id="custom-style-look" class="textarea compact-textarea" rows="2" placeholder="見た目の方向性"></textarea>
             </div>
             <div class="field-group">
-              <label class="field-label" for="custom-style-note">補足メモ</label>
-              <textarea id="custom-style-note" class="textarea compact-textarea" rows="2" placeholder="例: 和紙感を強く / もっと暗め / ポスター感を強める"></textarea>
+              <label class="field-label" for="custom-style-composition">Composition</label>
+              <textarea id="custom-style-composition" class="textarea compact-textarea" rows="2" placeholder="構図ルール"></textarea>
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="custom-style-texture">Texture</label>
+              <textarea id="custom-style-texture" class="textarea compact-textarea" rows="2" placeholder="質感ルール"></textarea>
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="custom-style-color">Color</label>
+              <textarea id="custom-style-color" class="textarea compact-textarea" rows="2" placeholder="色ルール"></textarea>
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="custom-style-mood">Mood</label>
+              <textarea id="custom-style-mood" class="textarea compact-textarea" rows="2" placeholder="雰囲気ルール"></textarea>
+            </div>
+            <div class="field-group">
+              <label class="field-label" for="custom-style-negative">Negative</label>
+              <textarea id="custom-style-negative" class="textarea compact-textarea" rows="2" placeholder="除外したい要素"></textarea>
             </div>
             <div class="inline-actions">
               <button id="save-style-button" class="primary-button compact-button" type="button">保存する</button>

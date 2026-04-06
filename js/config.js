@@ -12,6 +12,12 @@ window.MakeEyecatchConfig = {
       prompt: "landscape 16:9 canvas, wide horizontal composition, one dominant subject, generous negative space, optimized for a true 16:9 image area",
       compositionJa: "主役を1つに絞った横長構図",
     },
+    portrait: {
+      label: "縦長",
+      ratio: "4:5",
+      prompt: "portrait 4:5 canvas for Instagram, tall vertical composition, one dominant subject, balanced negative space above and below, optimized for a true 4:5 image area",
+      compositionJa: "Instagram向けの主役を立てる縦長構図",
+    },
   },
   baseStyleRules: {
     ukiyoe: {
