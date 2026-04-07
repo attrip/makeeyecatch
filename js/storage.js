@@ -1,5 +1,11 @@
 (function () {
-  const { storageKey, customStylesCookieKey, baseStyleRules } = window.MakeEyecatchConfig;
+  const {
+    storageKey,
+    customStylesStorageKey,
+    customStylesCookieKey,
+    legacyCustomStylesCookieKey,
+    baseStyleRules,
+  } = window.MakeEyecatchConfig;
 
   function setCookie(name, value, days = 365) {
     const expires = new Date(Date.now() + days * 86400000).toUTCString();
@@ -12,8 +18,11 @@
     return row ? decodeURIComponent(row.slice(prefix.length)) : "";
   }
 
-  function readCustomStyles() {
-    const raw = getCookie(customStylesCookieKey);
+  function clearCookie(name) {
+    document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/; SameSite=Lax`;
+  }
+
+  function safeParse(raw) {
     if (!raw) return {};
     try {
       const parsed = JSON.parse(raw);
@@ -23,8 +32,48 @@
     }
   }
 
+  function readCustomStylesFromStorage() {
+    return safeParse(window.localStorage.getItem(customStylesStorageKey));
+  }
+
+  function readLegacyCustomStyles() {
+    return safeParse(getCookie(legacyCustomStylesCookieKey));
+  }
+
+  function writeCustomStylesMeta(customStyles) {
+    const entries = Object.entries(customStyles);
+    const meta = {
+      hasCustomStyles: entries.length > 0,
+      count: entries.length,
+      lastStyleLabel: entries.length ? entries[entries.length - 1][1].label : "",
+      updatedAt: new Date().toISOString(),
+    };
+    setCookie(customStylesCookieKey, JSON.stringify(meta));
+  }
+
+  function ensureCustomStylesMigration() {
+    const current = readCustomStylesFromStorage();
+    if (Object.keys(current).length) {
+      writeCustomStylesMeta(current);
+      return current;
+    }
+
+    const legacy = readLegacyCustomStyles();
+    if (!Object.keys(legacy).length) return current;
+
+    window.localStorage.setItem(customStylesStorageKey, JSON.stringify(legacy));
+    writeCustomStylesMeta(legacy);
+    clearCookie(legacyCustomStylesCookieKey);
+    return legacy;
+  }
+
+  function readCustomStyles() {
+    return ensureCustomStylesMigration();
+  }
+
   function writeCustomStyles(customStyles) {
-    setCookie(customStylesCookieKey, JSON.stringify(customStyles));
+    window.localStorage.setItem(customStylesStorageKey, JSON.stringify(customStyles));
+    writeCustomStylesMeta(customStyles);
   }
 
   function rebuildStyleRules() {

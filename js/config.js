@@ -189,5 +189,7 @@ window.MakeEyecatchConfig = {
     { test: /(ai|chatgpt|gemini)/i, motif: "a single symbolic human figure shaped by abstract intelligence motifs" },
   ],
   storageKey: "makeeyecatch.settings.v1",
-  customStylesCookieKey: "makeeyecatch_custom_styles",
+  customStylesStorageKey: "makeeyecatch.custom_styles.v1",
+  customStylesCookieKey: "makeeyecatch_custom_styles_meta",
+  legacyCustomStylesCookieKey: "makeeyecatch_custom_styles",
 };
