@@ -38,7 +38,22 @@ window.MakeEyecatchConfig = {
       mood: "graphic clarity, quiet confidence, simple but memorable presence",
       negative: "no photorealism, no glossy 3D rendering, no anime style, no excessive detail, no multiple subjects",
     },
+    original: {
+      label: "オリジナル",
+      look: "clean editorial illustration, flexible visual language, iconic single-subject composition",
+      composition: "balanced composition, one dominant subject, enough breathing room around the main motif",
+      texture: "subtle paper texture, clean handcrafted imperfection",
+      color: "controlled palette, clear contrast, flexible mood-driven color balance",
+      mood: "clear, versatile, usable, quietly expressive",
+      negative: "no photorealism, no glossy 3D rendering, no clutter, no multiple subjects",
+    },
   },
+  coverStyleRules: {
+    "ukiyoe-cover": { label: "浮世絵カバー", baseKey: "ukiyoe" },
+    "simple70s-cover": { label: "70年代カバー", baseKey: "simple70s" },
+    "original-cover": { label: "オリジナルカバー", baseKey: "original" },
+  },
+  styleOrder: ["ukiyoe", "simple70s", "original", "ukiyoe-cover", "simple70s-cover", "original-cover"],
   textRules: {
     noText: {
       label: "文字なし",
