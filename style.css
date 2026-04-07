@@ -214,6 +214,16 @@ h1 {
   line-height: 1.6;
 }
 
+.custom-style-status {
+  padding: 10px 12px;
+  border: 1px solid rgba(180, 73, 45, 0.18);
+  border-radius: 14px;
+  background: rgba(180, 73, 45, 0.08);
+  color: var(--muted);
+  font-size: 0.86rem;
+  line-height: 1.6;
+}
+
 .compact-textarea {
   min-height: 72px;
 }

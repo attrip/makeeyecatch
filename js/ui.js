@@ -14,6 +14,7 @@
     saveStyleButton: document.getElementById("save-style-button"),
     customStylePanel: document.getElementById("custom-style-panel"),
     customStyleList: document.getElementById("custom-style-list"),
+    customStyleStatus: document.getElementById("custom-style-status"),
     customStyleSource: document.getElementById("custom-style-source"),
     promptOutput: document.getElementById("prompt-output"),
     titleOutput: document.getElementById("title-output"),
@@ -83,6 +84,26 @@
     });
   }
 
+  function renderCustomStyleStatus() {
+    const customStyles = readCustomStyles();
+    const count = Object.keys(customStyles).length;
+    const currentStyle = styleRules[elements.styleSelect.value];
+    const isCustomSelected = Boolean(customStyles[elements.styleSelect.value]);
+
+    if (!count) {
+      elements.customStyleStatus.hidden = true;
+      elements.customStyleStatus.textContent = "";
+      return;
+    }
+
+    const summary = isCustomSelected
+      ? `保存済みのMy Style ${count}件。いまは「${currentStyle.label}」を使用中。`
+      : `保存済みのMy Style ${count}件。いつでも切り替えできます。`;
+
+    elements.customStyleStatus.hidden = false;
+    elements.customStyleStatus.textContent = summary;
+  }
+
   function clearCustomStyleForm() {
     elements.customStyleLabelInput.value = "";
     elements.customStyleLookInput.value = "";
@@ -118,6 +139,7 @@
     setCheckedValue("textPolicy", saved.textMode ?? "noText");
     elements.styleSelect.value = styleRules[saved.selectedStyle] ? saved.selectedStyle : "ukiyoe";
     elements.titleInput.value = saved.lastTitle ?? "";
+    renderCustomStyleStatus();
   }
 
   function fillCustomStyleFormFromCurrent() {
@@ -161,6 +183,7 @@
     populateStyleSelect();
     renderCustomStyleList();
     elements.styleSelect.value = key;
+    renderCustomStyleStatus();
     elements.customStylePanel.hidden = true;
     clearCustomStyleForm();
     saveState();
@@ -173,6 +196,7 @@
     styleRules = rebuildStyleRules();
     populateStyleSelect();
     renderCustomStyleList();
+    renderCustomStyleStatus();
     saveState();
   }
 
@@ -251,10 +275,14 @@
     document.querySelectorAll('input[name="size"], input[name="textPolicy"]').forEach((input) => {
       input.addEventListener("change", saveState);
     });
-    elements.styleSelect.addEventListener("change", saveState);
+    elements.styleSelect.addEventListener("change", () => {
+      renderCustomStyleStatus();
+      saveState();
+    });
     elements.titleInput.addEventListener("input", saveState);
   }
 
   restoreState();
+  renderCustomStyleStatus();
   bindEvents();
 })();
