@@ -180,6 +180,7 @@
   function toggleCustomStylePanel() {
     const willOpen = elements.customStylePanel.hidden;
     elements.customStylePanel.hidden = !willOpen;
+    elements.customStylePanel.classList.toggle("is-open", willOpen);
     if (willOpen) fillCustomStyleFormFromCurrent();
   }
 
@@ -210,6 +211,7 @@
     renderStylePreview();
     renderCustomStyleStatus();
     elements.customStylePanel.hidden = true;
+    elements.customStylePanel.classList.remove("is-open");
     clearCustomStyleForm();
     saveState();
   }
