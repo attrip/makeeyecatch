@@ -43,8 +43,8 @@
   }
 
   function setCheckedValue(name, value) {
-    const element = document.querySelector(`input[name="${name}"][value="${value}"]`);
-    if (element) element.checked = true;
+    const input = document.querySelector(`input[name="${name}"][value="${value}"]`);
+    if (input) input.checked = true;
   }
 
   function slugifyStyleLabel(label) {
@@ -53,6 +53,98 @@
       .trim()
       .replace(/[^a-z0-9]+/g, "-")
       .replace(/^-+|-+$/g, "") || `custom-${Date.now()}`;
+  }
+
+  function getCustomStyles() {
+    return readCustomStyles();
+  }
+
+  function getSelectedStyleKey() {
+    return elements.styleSelect.value;
+  }
+
+  function getSelectedStyle() {
+    return styleRules[getSelectedStyleKey()] || styleRules.ukiyoe;
+  }
+
+  function isCustomStyleKey(styleKey) {
+    return Boolean(getCustomStyles()[styleKey]);
+  }
+
+  function isSelectedStyleCustom() {
+    return isCustomStyleKey(getSelectedStyleKey());
+  }
+
+  function populateStyleSelect() {
+    const currentValue = getSelectedStyleKey();
+    elements.styleSelect.innerHTML = "";
+
+    Object.entries(styleRules).forEach(([key, rule]) => {
+      const option = document.createElement("option");
+      option.value = key;
+      option.textContent = rule.label;
+      elements.styleSelect.appendChild(option);
+    });
+
+    elements.styleSelect.value = styleRules[currentValue] ? currentValue : "ukiyoe";
+  }
+
+  function renderCustomStyleList() {
+    const customStyles = getCustomStyles();
+    elements.customStyleList.innerHTML = "";
+
+    Object.entries(customStyles).forEach(([key, rule]) => {
+      const chip = document.createElement("div");
+      chip.className = "saved-style-chip";
+      chip.innerHTML = `<span>${rule.label}</span><button type="button" data-style-key="${key}">削除</button>`;
+      elements.customStyleList.appendChild(chip);
+    });
+  }
+
+  function renderCustomStyleStatus() {
+    const customStyles = getCustomStyles();
+    const count = Object.keys(customStyles).length;
+
+    if (!count) {
+      elements.customStyleStatus.hidden = true;
+      elements.customStyleStatus.textContent = "";
+      return;
+    }
+
+    const currentStyle = getSelectedStyle();
+    const summary = isSelectedStyleCustom()
+      ? `保存済みのMy Style ${count}件。いまは「${currentStyle.label}」を使用中。`
+      : `保存済みのMy Style ${count}件。いつでも切り替えできます。`;
+
+    elements.customStyleStatus.hidden = false;
+    elements.customStyleStatus.textContent = summary;
+  }
+
+  function setEditorOpen(nextOpen) {
+    editorOpen = nextOpen;
+    elements.customStylePanel.hidden = !nextOpen;
+    elements.addStyleButton.textContent = nextOpen ? "閉じる" : "中身を見る / My Style を作る";
+  }
+
+  function fillEditorFromSelectedStyle() {
+    const currentStyle = getSelectedStyle();
+    const selectedIsCustom = isSelectedStyleCustom();
+
+    elements.customStyleSource.textContent = selectedIsCustom
+      ? `いまは My Style「${currentStyle.label}」を編集中です。`
+      : `いまの標準Style「${currentStyle.label}」の中身です。必要なら My Style として保存できます。`;
+    elements.customStyleLabelInput.value = selectedIsCustom ? currentStyle.label || "" : "";
+    elements.customStyleLookInput.value = currentStyle.look || "";
+    elements.customStyleCompositionInput.value = currentStyle.composition || "";
+    elements.customStyleTextureInput.value = currentStyle.texture || "";
+    elements.customStyleColorInput.value = currentStyle.color || "";
+    elements.customStyleMoodInput.value = currentStyle.mood || "";
+    elements.customStyleNegativeInput.value = currentStyle.negative || "";
+  }
+
+  function renderEditorActions() {
+    elements.saveStyleButton.textContent = isSelectedStyleCustom() ? "このStyleを更新" : "My Style を作る";
+    elements.deleteStyleButton.hidden = !isSelectedStyleCustom();
   }
 
   function renderBadges(items) {
@@ -64,101 +156,25 @@
     });
   }
 
-  function populateStyleSelect() {
-    const currentValue = elements.styleSelect.value;
-    elements.styleSelect.innerHTML = "";
-    Object.entries(styleRules).forEach(([key, rule]) => {
-      const option = document.createElement("option");
-      option.value = key;
-      option.textContent = rule.label;
-      elements.styleSelect.appendChild(option);
-    });
-    elements.styleSelect.value = styleRules[currentValue] ? currentValue : "ukiyoe";
-  }
-
-  function renderCustomStyleList() {
-    const customStyles = readCustomStyles();
-    elements.customStyleList.innerHTML = "";
-    Object.entries(customStyles).forEach(([key, rule]) => {
-      const chip = document.createElement("div");
-      chip.className = "saved-style-chip";
-      chip.innerHTML = `<span>${rule.label}</span><button type="button" data-style-key="${key}">削除</button>`;
-      elements.customStyleList.appendChild(chip);
-    });
-  }
-
-  function renderCustomStyleStatus() {
-    const customStyles = readCustomStyles();
-    const count = Object.keys(customStyles).length;
-    const currentStyle = styleRules[elements.styleSelect.value];
-    const isCustomSelected = Boolean(customStyles[elements.styleSelect.value]);
-
-    if (!count) {
-      elements.customStyleStatus.hidden = true;
-      elements.customStyleStatus.textContent = "";
-      return;
+  function refreshStyles(preserveSelection = true) {
+    const currentKey = getSelectedStyleKey();
+    styleRules = rebuildStyleRules();
+    populateStyleSelect();
+    if (preserveSelection && styleRules[currentKey]) {
+      elements.styleSelect.value = currentKey;
     }
-
-    const summary = isCustomSelected
-      ? `保存済みのMy Style ${count}件。いまは「${currentStyle.label}」を使用中。`
-      : `保存済みのMy Style ${count}件。いつでも切り替えできます。`;
-
-    elements.customStyleStatus.hidden = false;
-    elements.customStyleStatus.textContent = summary;
-  }
-
-  function currentStyleRecord() {
-    const customStyles = readCustomStyles();
-    const currentStyle = styleRules[elements.styleSelect.value] || styleRules.ukiyoe;
-    const isCustomSelected = Boolean(customStyles[elements.styleSelect.value]);
-
-    return {
-      currentStyle,
-      isCustomSelected,
-    };
-  }
-
-  function setEditorOpen(nextOpen) {
-    editorOpen = nextOpen;
-    elements.customStylePanel.hidden = !nextOpen;
-    elements.addStyleButton.textContent = nextOpen ? "閉じる" : "中身を見る / My Style を作る";
-  }
-
-  function fillCustomStyleFormFromCurrent() {
-    const { currentStyle, isCustomSelected } = currentStyleRecord();
-    elements.customStyleSource.textContent = isCustomSelected
-      ? `いまは My Style「${currentStyle.label}」を編集中です。`
-      : `いまの標準Style「${currentStyle.label}」をベースに My Style を作れます。`;
-    elements.customStyleLabelInput.value = isCustomSelected ? currentStyle.label || "" : "";
-    elements.customStyleLookInput.value = currentStyle.look || "";
-    elements.customStyleCompositionInput.value = currentStyle.composition || "";
-    elements.customStyleTextureInput.value = currentStyle.texture || "";
-    elements.customStyleColorInput.value = currentStyle.color || "";
-    elements.customStyleMoodInput.value = currentStyle.mood || "";
-    elements.customStyleNegativeInput.value = currentStyle.negative || "";
-  }
-
-  function renderStyleEditorState() {
-    const { isCustomSelected } = currentStyleRecord();
-    elements.saveStyleButton.textContent = isCustomSelected ? "このStyleを更新" : "My Style を作る";
-    elements.deleteStyleButton.hidden = !isCustomSelected;
-  }
-
-  function clearCustomStyleForm() {
-    elements.customStyleLabelInput.value = "";
-    elements.customStyleLookInput.value = "";
-    elements.customStyleCompositionInput.value = "";
-    elements.customStyleTextureInput.value = "";
-    elements.customStyleColorInput.value = "";
-    elements.customStyleMoodInput.value = "";
-    elements.customStyleNegativeInput.value = "";
-    elements.customStyleSource.textContent = "";
+    renderCustomStyleList();
+    renderCustomStyleStatus();
+    if (editorOpen) {
+      fillEditorFromSelectedStyle();
+      renderEditorActions();
+    }
   }
 
   function readFormState() {
     return {
       selectedSize: selectedValue("size") ?? "wide",
-      selectedStyle: elements.styleSelect.value,
+      selectedStyle: getSelectedStyleKey(),
       textMode: selectedValue("textPolicy") ?? "noText",
       lastTitle: elements.titleInput.value.trim(),
     };
@@ -169,44 +185,39 @@
   }
 
   function restoreState() {
-    styleRules = rebuildStyleRules();
-    populateStyleSelect();
-    renderCustomStyleList();
+    refreshStyles(false);
     setEditorOpen(false);
 
     const saved = readState();
     if (!saved) return;
+
     setCheckedValue("size", saved.selectedSize ?? "wide");
     setCheckedValue("textPolicy", saved.textMode ?? "noText");
     elements.styleSelect.value = styleRules[saved.selectedStyle] ? saved.selectedStyle : "ukiyoe";
     elements.titleInput.value = saved.lastTitle ?? "";
-    fillCustomStyleFormFromCurrent();
-    renderStyleEditorState();
     renderCustomStyleStatus();
   }
 
-  function toggleCustomStylePanel() {
+  function toggleEditor() {
     const nextOpen = !editorOpen;
     setEditorOpen(nextOpen);
-    if (nextOpen) {
-      fillCustomStyleFormFromCurrent();
-      renderStyleEditorState();
-    }
+    if (!nextOpen) return;
+    fillEditorFromSelectedStyle();
+    renderEditorActions();
   }
 
   function saveCustomStyle() {
     const label = elements.customStyleLabelInput.value.trim();
-
     if (!label) {
       window.alert("Style名を入れてください。");
       return;
     }
 
-    const customStyles = readCustomStyles();
-    const currentKey = elements.styleSelect.value;
-    const isCustomSelected = Boolean(customStyles[currentKey]);
-    const key = isCustomSelected ? currentKey : `custom-${slugifyStyleLabel(label)}`;
-    customStyles[key] = {
+    const customStyles = getCustomStyles();
+    const selectedKey = getSelectedStyleKey();
+    const nextKey = isSelectedStyleCustom() ? selectedKey : `custom-${slugifyStyleLabel(label)}`;
+
+    customStyles[nextKey] = {
       label,
       look: elements.customStyleLookInput.value.trim(),
       composition: elements.customStyleCompositionInput.value.trim(),
@@ -215,33 +226,37 @@
       mood: elements.customStyleMoodInput.value.trim(),
       negative: elements.customStyleNegativeInput.value.trim(),
     };
+
     writeCustomStyles(customStyles);
-    styleRules = rebuildStyleRules();
-    populateStyleSelect();
-    renderCustomStyleList();
-    elements.styleSelect.value = key;
-    fillCustomStyleFormFromCurrent();
-    renderStyleEditorState();
+    refreshStyles(false);
+    elements.styleSelect.value = nextKey;
+    fillEditorFromSelectedStyle();
+    renderEditorActions();
     renderCustomStyleStatus();
-    setEditorOpen(true);
     saveState();
   }
 
-  function deleteCustomStyle(key = elements.styleSelect.value) {
-    const customStyles = readCustomStyles();
-    if (!customStyles[key]) return;
-    const deletedSelected = key === elements.styleSelect.value;
-    delete customStyles[key];
+  function deleteCustomStyle(styleKey = getSelectedStyleKey()) {
+    const customStyles = getCustomStyles();
+    if (!customStyles[styleKey]) return;
+
+    const deletedSelected = styleKey === getSelectedStyleKey();
+    delete customStyles[styleKey];
     writeCustomStyles(customStyles);
+
     styleRules = rebuildStyleRules();
     populateStyleSelect();
     renderCustomStyleList();
-    if (deletedSelected) {
+
+    if (deletedSelected || !styleRules[getSelectedStyleKey()]) {
       elements.styleSelect.value = "ukiyoe";
     }
-    fillCustomStyleFormFromCurrent();
-    renderStyleEditorState();
+
     renderCustomStyleStatus();
+    if (editorOpen) {
+      fillEditorFromSelectedStyle();
+      renderEditorActions();
+    }
     saveState();
   }
 
@@ -255,7 +270,7 @@
     const result = buildPrompt({
       title,
       size: selectedValue("size"),
-      style: elements.styleSelect.value,
+      style: getSelectedStyleKey(),
       textPolicy: selectedValue("textPolicy"),
       styleRules,
     });
@@ -303,7 +318,7 @@
   }
 
   function bindEvents() {
-    elements.addStyleButton.addEventListener("click", toggleCustomStylePanel);
+    elements.addStyleButton.addEventListener("click", toggleEditor);
     elements.saveStyleButton.addEventListener("click", saveCustomStyle);
     elements.deleteStyleButton.addEventListener("click", () => deleteCustomStyle());
     elements.closeStyleButton.addEventListener("click", () => setEditorOpen(false));
@@ -323,19 +338,17 @@
       input.addEventListener("change", saveState);
     });
     elements.styleSelect.addEventListener("change", () => {
-      if (editorOpen) {
-        fillCustomStyleFormFromCurrent();
-        renderStyleEditorState();
-      }
       renderCustomStyleStatus();
+      if (editorOpen) {
+        fillEditorFromSelectedStyle();
+        renderEditorActions();
+      }
       saveState();
     });
     elements.titleInput.addEventListener("input", saveState);
   }
 
   restoreState();
-  fillCustomStyleFormFromCurrent();
-  renderStyleEditorState();
   renderCustomStyleStatus();
   bindEvents();
 })();
