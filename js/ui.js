@@ -118,7 +118,7 @@
     const isCustomSelected = Boolean(customStyles[elements.styleSelect.value]);
 
     elements.stylePreviewLabel.textContent = currentStyle.label;
-    elements.stylePreviewKind.textContent = isCustomSelected ? "My Style" : "Default Style";
+    elements.stylePreviewKind.textContent = isCustomSelected ? "My Style" : "標準Style";
     elements.stylePreviewLook.textContent = currentStyle.look || "-";
     elements.stylePreviewComposition.textContent = currentStyle.composition || "-";
     elements.stylePreviewTexture.textContent = currentStyle.texture || "-";

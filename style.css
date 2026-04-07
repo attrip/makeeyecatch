@@ -231,6 +231,64 @@ h1 {
   line-height: 1.6;
 }
 
+.style-preview {
+  display: grid;
+  gap: 10px;
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: rgba(255, 252, 247, 0.78);
+}
+
+.style-preview-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.style-preview-header strong {
+  font-size: 0.95rem;
+}
+
+.style-preview-kind {
+  display: inline-flex;
+  align-items: center;
+  min-height: 28px;
+  padding: 0 10px;
+  border-radius: 999px;
+  background: rgba(31, 26, 22, 0.08);
+  color: var(--muted);
+  font-size: 0.78rem;
+}
+
+.style-preview-list {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+}
+
+.style-preview-list div {
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line);
+}
+
+.style-preview-list div:last-child {
+  padding-bottom: 0;
+  border-bottom: 0;
+}
+
+.style-preview-list dt {
+  font-size: 0.82rem;
+  color: var(--muted);
+}
+
+.style-preview-list dd {
+  margin: 6px 0 0;
+  line-height: 1.6;
+  word-break: break-word;
+}
+
 .compact-textarea {
   min-height: 72px;
 }
