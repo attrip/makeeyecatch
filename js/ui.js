@@ -15,6 +15,14 @@
     customStylePanel: document.getElementById("custom-style-panel"),
     customStyleList: document.getElementById("custom-style-list"),
     customStyleStatus: document.getElementById("custom-style-status"),
+    stylePreviewLabel: document.getElementById("style-preview-label"),
+    stylePreviewKind: document.getElementById("style-preview-kind"),
+    stylePreviewLook: document.getElementById("style-preview-look"),
+    stylePreviewComposition: document.getElementById("style-preview-composition"),
+    stylePreviewTexture: document.getElementById("style-preview-texture"),
+    stylePreviewColor: document.getElementById("style-preview-color"),
+    stylePreviewMood: document.getElementById("style-preview-mood"),
+    stylePreviewNegative: document.getElementById("style-preview-negative"),
     customStyleSource: document.getElementById("custom-style-source"),
     promptOutput: document.getElementById("prompt-output"),
     titleOutput: document.getElementById("title-output"),
@@ -104,6 +112,21 @@
     elements.customStyleStatus.textContent = summary;
   }
 
+  function renderStylePreview() {
+    const customStyles = readCustomStyles();
+    const currentStyle = styleRules[elements.styleSelect.value] || styleRules.ukiyoe;
+    const isCustomSelected = Boolean(customStyles[elements.styleSelect.value]);
+
+    elements.stylePreviewLabel.textContent = currentStyle.label;
+    elements.stylePreviewKind.textContent = isCustomSelected ? "My Style" : "Default Style";
+    elements.stylePreviewLook.textContent = currentStyle.look || "-";
+    elements.stylePreviewComposition.textContent = currentStyle.composition || "-";
+    elements.stylePreviewTexture.textContent = currentStyle.texture || "-";
+    elements.stylePreviewColor.textContent = currentStyle.color || "-";
+    elements.stylePreviewMood.textContent = currentStyle.mood || "-";
+    elements.stylePreviewNegative.textContent = currentStyle.negative || "-";
+  }
+
   function clearCustomStyleForm() {
     elements.customStyleLabelInput.value = "";
     elements.customStyleLookInput.value = "";
@@ -117,7 +140,7 @@
 
   function readFormState() {
     return {
-      selectedSize: selectedValue("size") ?? "square",
+      selectedSize: selectedValue("size") ?? "wide",
       selectedStyle: elements.styleSelect.value,
       textMode: selectedValue("textPolicy") ?? "noText",
       lastTitle: elements.titleInput.value.trim(),
@@ -135,10 +158,11 @@
 
     const saved = readState();
     if (!saved) return;
-    setCheckedValue("size", saved.selectedSize ?? "square");
+    setCheckedValue("size", saved.selectedSize ?? "wide");
     setCheckedValue("textPolicy", saved.textMode ?? "noText");
     elements.styleSelect.value = styleRules[saved.selectedStyle] ? saved.selectedStyle : "ukiyoe";
     elements.titleInput.value = saved.lastTitle ?? "";
+    renderStylePreview();
     renderCustomStyleStatus();
   }
 
@@ -183,6 +207,7 @@
     populateStyleSelect();
     renderCustomStyleList();
     elements.styleSelect.value = key;
+    renderStylePreview();
     renderCustomStyleStatus();
     elements.customStylePanel.hidden = true;
     clearCustomStyleForm();
@@ -196,6 +221,7 @@
     styleRules = rebuildStyleRules();
     populateStyleSelect();
     renderCustomStyleList();
+    renderStylePreview();
     renderCustomStyleStatus();
     saveState();
   }
@@ -276,6 +302,7 @@
       input.addEventListener("change", saveState);
     });
     elements.styleSelect.addEventListener("change", () => {
+      renderStylePreview();
       renderCustomStyleStatus();
       saveState();
     });
@@ -283,6 +310,7 @@
   }
 
   restoreState();
+  renderStylePreview();
   renderCustomStyleStatus();
   bindEvents();
 })();

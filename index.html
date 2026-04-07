@@ -34,11 +34,11 @@
           <span class="field-label">画像サイズ</span>
           <div class="chip-row" id="size-options">
             <label class="chip">
-              <input type="radio" name="size" value="square" checked />
+              <input type="radio" name="size" value="square" />
               <span>正方形 1:1</span>
             </label>
             <label class="chip">
-              <input type="radio" name="size" value="wide" />
+              <input type="radio" name="size" value="wide" checked />
               <span>16:9</span>
             </label>
             <label class="chip">
@@ -56,6 +56,38 @@
           </select>
           <div class="inline-actions">
             <button id="add-style-button" class="secondary-button compact-button" type="button">Styleを追加</button>
+          </div>
+          <div id="style-preview" class="style-preview">
+            <div class="style-preview-header">
+              <strong id="style-preview-label">浮世絵</strong>
+              <span id="style-preview-kind" class="style-preview-kind">Default Style</span>
+            </div>
+            <dl class="style-preview-list">
+              <div>
+                <dt>Look</dt>
+                <dd id="style-preview-look">-</dd>
+              </div>
+              <div>
+                <dt>Composition</dt>
+                <dd id="style-preview-composition">-</dd>
+              </div>
+              <div>
+                <dt>Texture</dt>
+                <dd id="style-preview-texture">-</dd>
+              </div>
+              <div>
+                <dt>Color</dt>
+                <dd id="style-preview-color">-</dd>
+              </div>
+              <div>
+                <dt>Mood</dt>
+                <dd id="style-preview-mood">-</dd>
+              </div>
+              <div>
+                <dt>Negative</dt>
+                <dd id="style-preview-negative">-</dd>
+              </div>
+            </dl>
           </div>
           <div id="custom-style-status" class="custom-style-status" hidden></div>
           <div id="custom-style-panel" class="custom-style-panel" hidden>
