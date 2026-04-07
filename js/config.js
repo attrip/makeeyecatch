@@ -47,13 +47,23 @@ window.MakeEyecatchConfig = {
       mood: "clear, versatile, usable, quietly expressive",
       negative: "no photorealism, no glossy 3D rendering, no clutter, no multiple subjects",
     },
+    hokkaidoCamper: {
+      label: "北海道キャンピングカー",
+      look: "clean travel editorial illustration with calm outdoor atmosphere, iconic single-subject composition, friendly road-trip mood",
+      composition: "one dominant camper-van related subject, spacious composition, enough room for landscape atmosphere without clutter",
+      texture: "subtle paper texture, clean printed feel, light handcrafted imperfection",
+      color: "natural Hokkaido-inspired palette, cool sky tones, muted greens, warm beige highlights, restrained contrast",
+      mood: "open-air freedom, practical warmth, quiet travel excitement, clear usability",
+      negative: "no photorealism, no glossy 3D rendering, no city clutter, no multiple subjects",
+    },
   },
   coverStyleRules: {
     "ukiyoe-cover": { label: "浮世絵カバー", baseKey: "ukiyoe" },
     "simple70s-cover": { label: "70年代カバー", baseKey: "simple70s" },
     "original-cover": { label: "オリジナルカバー", baseKey: "original" },
+    "hokkaidoCamper-cover": { label: "北海道キャンピングカーカバー", baseKey: "hokkaidoCamper" },
   },
-  styleOrder: ["ukiyoe", "simple70s", "original", "ukiyoe-cover", "simple70s-cover", "original-cover"],
+  styleOrder: ["ukiyoe", "simple70s", "original", "hokkaidoCamper", "ukiyoe-cover", "simple70s-cover", "original-cover", "hokkaidoCamper-cover"],
   textRules: {
     noText: {
       label: "文字なし",
