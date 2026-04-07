@@ -31,11 +31,11 @@ window.MakeEyecatchConfig = {
     },
     simple70s: {
       label: "70sシンプル",
-      look: "with subtle 1970s editorial illustration cues, bold flat shapes, minimal poster design, iconic silhouette-driven composition",
-      composition: "",
-      texture: "subtle paper grain, light vintage print texture, clean analog imperfection",
-      color: "warm retro palette, burnt orange, mustard, olive, cream, restrained contrast",
-      mood: "graphic clarity, quiet confidence, simple but memorable presence",
+      look: "1970s retro editorial illustration, mid-century modern style, bold flat shapes, clean but slightly rough outlines, minimal detail, iconic composition",
+      composition: "iconic composition, clean layout, one dominant subject with minimal distraction",
+      texture: "subtle paper grain texture, vintage print effect, slight misalignment",
+      color: "limited warm color palette, muted orange and brown tones",
+      mood: "calm and informative mood",
       negative: "no photorealism, no glossy 3D rendering, no anime style, no excessive detail, no multiple subjects",
     },
     original: {
