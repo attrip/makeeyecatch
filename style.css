@@ -81,6 +81,13 @@ h1 {
   font-weight: 700;
 }
 
+.term-ja {
+  margin-left: 0.35em;
+  font-size: 0.8em;
+  font-weight: 500;
+  color: var(--muted);
+}
+
 .chip-row {
   display: flex;
   flex-wrap: wrap;
