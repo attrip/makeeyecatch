@@ -30,7 +30,7 @@ window.MakeEyecatchConfig = {
       negative: "no photorealism, no glossy 3D rendering, no modern objects, no complex background, no multiple subjects",
     },
     simple70s: {
-      label: "70sシンプル",
+      label: "1970年代",
       look: "1970s retro editorial illustration, mid-century modern style, bold flat shapes, clean but slightly rough outlines, minimal detail, iconic composition",
       composition: "iconic composition, clean layout, one dominant subject with minimal distraction",
       texture: "subtle paper grain texture, vintage print effect, slight misalignment",
@@ -57,7 +57,7 @@ window.MakeEyecatchConfig = {
       negative: "no photorealism, no glossy 3D rendering, no city clutter, no multiple subjects",
     },
     retro80s: {
-      label: "80年代",
+      label: "1980年代",
       look: "1980s editorial illustration, geometric styling, bold silhouettes, graphic composition, slightly playful visual rhythm",
       composition: "clear focal subject, dynamic but readable layout, poster-like balance",
       texture: "light paper grain, subtle print noise, analog magazine feel",
@@ -66,7 +66,7 @@ window.MakeEyecatchConfig = {
       negative: "no photorealism, no glossy 3D rendering, no cyberpunk excess, no multiple subjects",
     },
     retro90s: {
-      label: "90年代",
+      label: "1990年代",
       look: "1990s editorial illustration, approachable graphic style, soft analog shapes, clean magazine composition",
       composition: "one dominant subject, relaxed layout, simple editorial spacing",
       texture: "subtle print texture, light grain, slightly dry ink feel",
@@ -104,9 +104,9 @@ window.MakeEyecatchConfig = {
   },
   coverStyleRules: {
     "ukiyoe-cover": { label: "浮世絵カバー", baseKey: "ukiyoe" },
-    "simple70s-cover": { label: "70年代カバー", baseKey: "simple70s" },
-    "retro80s-cover": { label: "80年代カバー", baseKey: "retro80s" },
-    "retro90s-cover": { label: "90年代カバー", baseKey: "retro90s" },
+    "simple70s-cover": { label: "1970年代カバー", baseKey: "simple70s" },
+    "retro80s-cover": { label: "1980年代カバー", baseKey: "retro80s" },
+    "retro90s-cover": { label: "1990年代カバー", baseKey: "retro90s" },
     "retro2000s-cover": { label: "2000年代カバー", baseKey: "retro2000s" },
     "retro2010s-cover": { label: "2010年代カバー", baseKey: "retro2010s" },
     "retro2020s-cover": { label: "2020年代カバー", baseKey: "retro2020s" },
