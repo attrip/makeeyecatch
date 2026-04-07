@@ -181,6 +181,7 @@
     const willOpen = elements.customStylePanel.hidden;
     elements.customStylePanel.hidden = !willOpen;
     elements.customStylePanel.classList.toggle("is-open", willOpen);
+    elements.addStyleButton.textContent = willOpen ? "閉じる" : "My Style を作る";
     if (willOpen) fillCustomStyleFormFromCurrent();
   }
 
@@ -212,6 +213,7 @@
     renderCustomStyleStatus();
     elements.customStylePanel.hidden = true;
     elements.customStylePanel.classList.remove("is-open");
+    elements.addStyleButton.textContent = "My Style を作る";
     clearCustomStyleForm();
     saveState();
   }
