@@ -55,54 +55,50 @@
             <option value="simple70s">70sシンプル</option>
           </select>
           <div class="inline-actions">
-            <button id="add-style-button" class="secondary-button compact-button" type="button">中身を見る / My Style を作る</button>
+            <button id="view-style-button" class="secondary-button compact-button" type="button">Styleの中身を見る</button>
           </div>
-          <div id="custom-style-status" class="custom-style-status" hidden></div>
-          <div id="custom-style-panel" class="custom-style-panel" hidden>
+          <div id="style-detail-panel" class="custom-style-panel" hidden>
             <div class="custom-style-panel-header">
-              <p id="custom-style-source">いまのStyleの内容をここで編集できます。</p>
+              <p id="style-detail-source">選択中Styleの中身です。</p>
             </div>
             <div class="field-group field-card">
-              <label class="field-label" for="custom-style-label">Style名</label>
-              <input id="custom-style-label" class="text-input" type="text" placeholder="例: 水彩ポスター" />
+              <label class="field-label">Style名</label>
+              <div id="style-detail-label" class="detail-value">-</div>
             </div>
             <div class="field-group field-card">
-              <label class="field-label" for="custom-style-look">Look <span class="term-ja">見た目</span></label>
+              <label class="field-label">Look <span class="term-ja">見た目</span></label>
               <p class="field-help">全体の見え方やタッチ</p>
-              <textarea id="custom-style-look" class="textarea compact-textarea" rows="2" placeholder="見た目の方向性"></textarea>
+              <div id="style-detail-look" class="detail-value">-</div>
             </div>
             <div class="field-group field-card">
-              <label class="field-label" for="custom-style-composition">Composition <span class="term-ja">構図</span></label>
+              <label class="field-label">Composition <span class="term-ja">構図</span></label>
               <p class="field-help">主役の置き方や余白</p>
-              <textarea id="custom-style-composition" class="textarea compact-textarea" rows="2" placeholder="構図ルール"></textarea>
+              <div id="style-detail-composition" class="detail-value">-</div>
             </div>
             <div class="field-group field-card">
-              <label class="field-label" for="custom-style-texture">Texture <span class="term-ja">質感</span></label>
+              <label class="field-label">Texture <span class="term-ja">質感</span></label>
               <p class="field-help">紙感、印刷感、線の表情</p>
-              <textarea id="custom-style-texture" class="textarea compact-textarea" rows="2" placeholder="質感ルール"></textarea>
+              <div id="style-detail-texture" class="detail-value">-</div>
             </div>
             <div class="field-group field-card">
-              <label class="field-label" for="custom-style-color">Color <span class="term-ja">色</span></label>
+              <label class="field-label">Color <span class="term-ja">色</span></label>
               <p class="field-help">配色の方向性</p>
-              <textarea id="custom-style-color" class="textarea compact-textarea" rows="2" placeholder="色ルール"></textarea>
+              <div id="style-detail-color" class="detail-value">-</div>
             </div>
             <div class="field-group field-card">
-              <label class="field-label" for="custom-style-mood">Mood <span class="term-ja">雰囲気</span></label>
+              <label class="field-label">Mood <span class="term-ja">雰囲気</span></label>
               <p class="field-help">空気感や感情のトーン</p>
-              <textarea id="custom-style-mood" class="textarea compact-textarea" rows="2" placeholder="雰囲気ルール"></textarea>
+              <div id="style-detail-mood" class="detail-value">-</div>
             </div>
             <div class="field-group field-card">
-              <label class="field-label" for="custom-style-negative">Negative <span class="term-ja">除外</span></label>
+              <label class="field-label">Negative <span class="term-ja">除外</span></label>
               <p class="field-help">出したくない要素</p>
-              <textarea id="custom-style-negative" class="textarea compact-textarea" rows="2" placeholder="除外したい要素"></textarea>
+              <div id="style-detail-negative" class="detail-value">-</div>
             </div>
             <div class="inline-actions">
-              <button id="save-style-button" class="primary-button compact-button" type="button">My Style を作る</button>
-              <button id="delete-style-button" class="secondary-button compact-button" type="button" hidden>削除する</button>
-              <button id="close-style-button" class="secondary-button compact-button" type="button">閉じる</button>
+              <button id="close-style-detail-button" class="secondary-button compact-button" type="button">閉じる</button>
             </div>
           </div>
-          <div id="custom-style-list" class="saved-style-list"></div>
         </div>
 
         <div class="field-group">

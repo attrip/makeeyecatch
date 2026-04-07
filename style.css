@@ -247,6 +247,11 @@ h1 {
   line-height: 1.5;
 }
 
+.detail-value {
+  line-height: 1.6;
+  word-break: break-word;
+}
+
 .custom-style-status {
   padding: 10px 12px;
   border: 1px solid rgba(180, 73, 45, 0.18);
