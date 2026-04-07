@@ -11,7 +11,9 @@
     chatgptButton: document.getElementById("chatgpt-button"),
     geminiButton: document.getElementById("gemini-button"),
     addStyleButton: document.getElementById("add-style-button"),
+    saveStyleButton: document.getElementById("save-style-button"),
     deleteStyleButton: document.getElementById("delete-style-button"),
+    closeStyleButton: document.getElementById("close-style-button"),
     customStylePanel: document.getElementById("custom-style-panel"),
     customStyleList: document.getElementById("custom-style-list"),
     customStyleStatus: document.getElementById("custom-style-status"),
@@ -34,6 +36,7 @@
   };
 
   let styleRules = rebuildStyleRules();
+  let editorOpen = false;
 
   function selectedValue(name) {
     return document.querySelector(`input[name="${name}"]:checked`)?.value;
@@ -115,6 +118,12 @@
     };
   }
 
+  function setEditorOpen(nextOpen) {
+    editorOpen = nextOpen;
+    elements.customStylePanel.hidden = !nextOpen;
+    elements.addStyleButton.textContent = nextOpen ? "閉じる" : "中身を見る / My Style を作る";
+  }
+
   function fillCustomStyleFormFromCurrent() {
     const { currentStyle, isCustomSelected } = currentStyleRecord();
     elements.customStyleSource.textContent = isCustomSelected
@@ -131,7 +140,7 @@
 
   function renderStyleEditorState() {
     const { isCustomSelected } = currentStyleRecord();
-    elements.addStyleButton.textContent = isCustomSelected ? "このStyleを更新" : "My Style を作る";
+    elements.saveStyleButton.textContent = isCustomSelected ? "このStyleを更新" : "My Style を作る";
     elements.deleteStyleButton.hidden = !isCustomSelected;
   }
 
@@ -163,6 +172,7 @@
     styleRules = rebuildStyleRules();
     populateStyleSelect();
     renderCustomStyleList();
+    setEditorOpen(false);
 
     const saved = readState();
     if (!saved) return;
@@ -173,6 +183,15 @@
     fillCustomStyleFormFromCurrent();
     renderStyleEditorState();
     renderCustomStyleStatus();
+  }
+
+  function toggleCustomStylePanel() {
+    const nextOpen = !editorOpen;
+    setEditorOpen(nextOpen);
+    if (nextOpen) {
+      fillCustomStyleFormFromCurrent();
+      renderStyleEditorState();
+    }
   }
 
   function saveCustomStyle() {
@@ -204,18 +223,22 @@
     fillCustomStyleFormFromCurrent();
     renderStyleEditorState();
     renderCustomStyleStatus();
+    setEditorOpen(true);
     saveState();
   }
 
   function deleteCustomStyle(key = elements.styleSelect.value) {
     const customStyles = readCustomStyles();
     if (!customStyles[key]) return;
+    const deletedSelected = key === elements.styleSelect.value;
     delete customStyles[key];
     writeCustomStyles(customStyles);
     styleRules = rebuildStyleRules();
     populateStyleSelect();
     renderCustomStyleList();
-    elements.styleSelect.value = "ukiyoe";
+    if (deletedSelected) {
+      elements.styleSelect.value = "ukiyoe";
+    }
     fillCustomStyleFormFromCurrent();
     renderStyleEditorState();
     renderCustomStyleStatus();
@@ -280,8 +303,10 @@
   }
 
   function bindEvents() {
-    elements.addStyleButton.addEventListener("click", saveCustomStyle);
+    elements.addStyleButton.addEventListener("click", toggleCustomStylePanel);
+    elements.saveStyleButton.addEventListener("click", saveCustomStyle);
     elements.deleteStyleButton.addEventListener("click", () => deleteCustomStyle());
+    elements.closeStyleButton.addEventListener("click", () => setEditorOpen(false));
     elements.customStyleList.addEventListener("click", (event) => {
       const button = event.target.closest("button[data-style-key]");
       if (!button) return;
@@ -298,8 +323,10 @@
       input.addEventListener("change", saveState);
     });
     elements.styleSelect.addEventListener("change", () => {
-      fillCustomStyleFormFromCurrent();
-      renderStyleEditorState();
+      if (editorOpen) {
+        fillCustomStyleFormFromCurrent();
+        renderStyleEditorState();
+      }
       renderCustomStyleStatus();
       saveState();
     });

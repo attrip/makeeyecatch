@@ -54,13 +54,12 @@
             <option value="ukiyoe">浮世絵</option>
             <option value="simple70s">70sシンプル</option>
           </select>
+          <div class="inline-actions">
+            <button id="add-style-button" class="secondary-button compact-button" type="button">中身を見る / My Style を作る</button>
+          </div>
           <div id="custom-style-status" class="custom-style-status" hidden></div>
-          <div id="custom-style-panel" class="custom-style-panel">
+          <div id="custom-style-panel" class="custom-style-panel" hidden>
             <div class="custom-style-panel-header">
-              <div class="inline-actions">
-                <button id="add-style-button" class="primary-button compact-button" type="button">My Style を作る</button>
-                <button id="delete-style-button" class="secondary-button compact-button" type="button" hidden>削除する</button>
-              </div>
               <p id="custom-style-source">いまのStyleの内容をここで編集できます。</p>
             </div>
             <div class="field-group field-card">
@@ -96,6 +95,11 @@
               <label class="field-label" for="custom-style-negative">Negative <span class="term-ja">除外</span></label>
               <p class="field-help">出したくない要素</p>
               <textarea id="custom-style-negative" class="textarea compact-textarea" rows="2" placeholder="除外したい要素"></textarea>
+            </div>
+            <div class="inline-actions">
+              <button id="save-style-button" class="primary-button compact-button" type="button">My Style を作る</button>
+              <button id="delete-style-button" class="secondary-button compact-button" type="button" hidden>削除する</button>
+              <button id="close-style-button" class="secondary-button compact-button" type="button">閉じる</button>
             </div>
           </div>
           <div id="custom-style-list" class="saved-style-list"></div>
