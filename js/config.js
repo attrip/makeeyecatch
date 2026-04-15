@@ -102,17 +102,6 @@ window.MakeEyecatchConfig = {
       negative: "no photorealism, no glossy 3D rendering, no clutter, no multiple subjects",
     },
   },
-  coverStyleRules: {
-    "ukiyoe-cover": { label: "浮世絵カバー", baseKey: "ukiyoe" },
-    "simple70s-cover": { label: "1970年代カバー", baseKey: "simple70s" },
-    "retro80s-cover": { label: "1980年代カバー", baseKey: "retro80s" },
-    "retro90s-cover": { label: "1990年代カバー", baseKey: "retro90s" },
-    "retro2000s-cover": { label: "2000年代カバー", baseKey: "retro2000s" },
-    "retro2010s-cover": { label: "2010年代カバー", baseKey: "retro2010s" },
-    "retro2020s-cover": { label: "2020年代カバー", baseKey: "retro2020s" },
-    "original-cover": { label: "オリジナルカバー", baseKey: "original" },
-    "hokkaidoCamper-cover": { label: "北海道キャンピングカーカバー", baseKey: "hokkaidoCamper" },
-  },
   styleOrder: [
     "ukiyoe",
     "simple70s",
@@ -123,15 +112,6 @@ window.MakeEyecatchConfig = {
     "retro2020s",
     "original",
     "hokkaidoCamper",
-    "ukiyoe-cover",
-    "simple70s-cover",
-    "retro80s-cover",
-    "retro90s-cover",
-    "retro2000s-cover",
-    "retro2010s-cover",
-    "retro2020s-cover",
-    "original-cover",
-    "hokkaidoCamper-cover",
   ],
   textRules: {
     noText: {

@@ -5,7 +5,6 @@
     customStylesCookieKey,
     legacyCustomStylesCookieKey,
     baseStyleRules,
-    coverStyleRules,
   } = window.MakeEyecatchConfig;
 
   function setCookie(name, value, days = 365) {
@@ -68,31 +67,13 @@
     return legacy;
   }
 
-  function ensureCoverStyles(customStyles) {
-    const nextStyles = { ...customStyles };
-
-    Object.entries(coverStyleRules).forEach(([coverKey, coverRule]) => {
-      if (nextStyles[coverKey]) return;
-      const baseStyle = baseStyleRules[coverRule.baseKey];
-      if (!baseStyle) return;
-      nextStyles[coverKey] = {
-        ...baseStyle,
-        label: coverRule.label,
-        baseKey: coverRule.baseKey,
-      };
-    });
-
-    return nextStyles;
-  }
-
   function readCustomStyles() {
-    return ensureCoverStyles(ensureCustomStylesMigration());
+    return ensureCustomStylesMigration();
   }
 
   function writeCustomStyles(customStyles) {
-    const nextStyles = ensureCoverStyles(customStyles);
-    window.localStorage.setItem(customStylesStorageKey, JSON.stringify(nextStyles));
-    writeCustomStylesMeta(nextStyles);
+    window.localStorage.setItem(customStylesStorageKey, JSON.stringify(customStyles));
+    writeCustomStylesMeta(customStyles);
   }
 
   function rebuildStyleRules() {
