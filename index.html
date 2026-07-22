@@ -1,173 +1,49 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Make Eyecatch Prompt Builder</title>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&family=Cormorant+Garamond:wght@500&display=swap"
-      rel="stylesheet"
-    />
-    <link rel="stylesheet" href="./style.css" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="記事の核を400文字で置き、4つの画像パターンからアイキャッチをつくる。">
+    <title>Make Eyecatch</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
   </head>
   <body>
     <main class="app-shell">
-      <section class="hero">
-        <p class="eyebrow">Make Eyecatch</p>
-        <h1>ブログタイトルからアイキャッチ用プロンプトを作るツール</h1>
+      <header class="hero">
+        <p class="eyebrow">MAKE EYECATCH</p>
+        <h1>画像の雰囲気を、<br>先に決める。</h1>
+        <p>本当に大事なことを400文字で置く。あとは、4つの型から一つ選ぶだけ。</p>
+      </header>
+
+      <section class="input-area" aria-labelledby="idea-label">
+        <div class="section-heading"><span>01</span><h2 id="idea-label">記事の核</h2><small id="char-count">0 / 400</small></div>
+        <textarea id="title-input" maxlength="400" rows="7" placeholder="この記事でいちばん残したいこと。読んだ人に何を感じてほしいか。画像で伝えたい空気。"></textarea>
       </section>
 
-      <section class="panel controls">
-        <div class="field-group">
-          <label class="field-label" for="title-input">元のブログタイトル</label>
-          <textarea
-            id="title-input"
-            class="textarea"
-            rows="3"
-            placeholder="ここに元のブログタイトルを入れる"
-          ></textarea>
-        </div>
-
-        <div class="field-group">
-          <span class="field-label">画像サイズ</span>
-          <div class="chip-row" id="size-options">
-            <label class="chip">
-              <input type="radio" name="size" value="square" />
-              <span>正方形 1:1</span>
-            </label>
-            <label class="chip">
-              <input type="radio" name="size" value="wide" checked />
-              <span>16:9</span>
-            </label>
-            <label class="chip">
-              <input type="radio" name="size" value="portrait" />
-              <span>縦長 4:5</span>
-            </label>
-          </div>
-        </div>
-
-        <div class="field-group">
-          <label class="field-label" for="style-select">画像Style</label>
-          <select id="style-select" class="select"></select>
-          <div class="inline-actions">
-            <button id="view-style-button" class="secondary-button compact-button" type="button">Styleの中身を見る</button>
-          </div>
-          <div id="style-detail-panel" class="custom-style-panel" hidden>
-            <div class="custom-style-panel-header">
-              <p id="style-detail-source">選択中Styleの中身です。</p>
-            </div>
-            <div class="field-group field-card">
-              <label class="field-label">Style名</label>
-              <div id="style-detail-label" class="detail-value">-</div>
-            </div>
-            <div class="field-group field-card">
-              <label class="field-label">Look <span class="term-ja">見た目</span></label>
-              <p class="field-help">全体の見え方やタッチ</p>
-              <div id="style-detail-look" class="detail-value">-</div>
-            </div>
-            <div class="field-group field-card">
-              <label class="field-label">Composition <span class="term-ja">構図</span></label>
-              <p class="field-help">主役の置き方や余白</p>
-              <div id="style-detail-composition" class="detail-value">-</div>
-            </div>
-            <div class="field-group field-card">
-              <label class="field-label">Texture <span class="term-ja">質感</span></label>
-              <p class="field-help">紙感、印刷感、線の表情</p>
-              <div id="style-detail-texture" class="detail-value">-</div>
-            </div>
-            <div class="field-group field-card">
-              <label class="field-label">Color <span class="term-ja">色</span></label>
-              <p class="field-help">配色の方向性</p>
-              <div id="style-detail-color" class="detail-value">-</div>
-            </div>
-            <div class="field-group field-card">
-              <label class="field-label">Mood <span class="term-ja">雰囲気</span></label>
-              <p class="field-help">空気感や感情のトーン</p>
-              <div id="style-detail-mood" class="detail-value">-</div>
-            </div>
-            <div class="field-group field-card">
-              <label class="field-label">Negative <span class="term-ja">除外</span></label>
-              <p class="field-help">出したくない要素</p>
-              <div id="style-detail-negative" class="detail-value">-</div>
-            </div>
-            <div class="inline-actions">
-              <button id="close-style-detail-button" class="secondary-button compact-button" type="button">閉じる</button>
-            </div>
-          </div>
-        </div>
-
-        <div class="field-group">
-          <span class="field-label">文字の扱い</span>
-          <div class="chip-row">
-            <label class="chip">
-              <input type="radio" name="textPolicy" value="noText" checked />
-              <span>文字なし</span>
-            </label>
-            <label class="chip">
-              <input type="radio" name="textPolicy" value="unspecified" />
-              <span>未指定</span>
-            </label>
-          </div>
-        </div>
-
-        <div class="actions">
-          <button id="generate-button" class="primary-button" type="button">生成する</button>
-          <button id="copy-button" class="secondary-button" type="button">コピー</button>
-          <button id="chatgpt-button" class="secondary-button" type="button">ChatGPTで開く</button>
-          <button id="gemini-button" class="secondary-button" type="button">Geminiで開く</button>
+      <section class="style-area" aria-labelledby="style-label">
+        <div class="section-heading"><span>02</span><h2 id="style-label">画像の型を選ぶ</h2><small>選んだ型は次回も残ります</small></div>
+        <div id="style-options" class="style-grid">
+          <button class="style-card" type="button" data-style="ukiyoe"><img src="./assets/style-ukiyoe.svg" alt="浮世絵の雰囲気"><strong>浮世絵</strong><small>物語と余白</small></button>
+          <button class="style-card" type="button" data-style="original"><img src="./assets/style-sharp.svg" alt="シャープなエディトリアルの雰囲気"><strong>シャープなエディトリアル</strong><small>白・黒・藍</small></button>
+          <button class="style-card" type="button" data-style="simple70s"><img src="./assets/style-paper.svg" alt="静かな紙の記録の雰囲気"><strong>静かな紙の記録</strong><small>手触りと静けさ</small></button>
+          <button class="style-card" type="button" data-style="retro80s"><img src="./assets/style-poster.svg" alt="鮮やかなポスターの雰囲気"><strong>鮮やかなポスター</strong><small>強い一瞬</small></button>
         </div>
       </section>
 
-      <section class="panel output">
-        <div class="output-header">
-          <div>
-            <p class="eyebrow">Prompt</p>
-            <h2>完成プロンプト</h2>
-          </div>
-          <div id="meta-badges" class="meta-badges"></div>
-        </div>
+      <section class="action-area">
+        <button id="generate-button" class="primary-button" type="button">この型でプロンプトを作る <span>→</span></button>
+        <p id="selected-style">浮世絵を選択中</p>
+      </section>
 
-        <div class="output-grid">
-          <article class="output-card">
-            <h3>Prompt</h3>
-            <pre id="prompt-output" class="code-block">タイトルを入れて生成してください。</pre>
-          </article>
-
-          <article class="output-card">
-            <h3>解釈メモ</h3>
-            <dl class="summary-list">
-              <div>
-                <dt>元タイトル</dt>
-                <dd id="title-output">未生成</dd>
-              </div>
-              <div>
-                <dt>主題</dt>
-                <dd id="subject-output">未生成</dd>
-              </div>
-              <div>
-                <dt>1モチーフ</dt>
-                <dd id="motif-output">未生成</dd>
-              </div>
-              <div>
-                <dt>雰囲気</dt>
-                <dd id="mood-output">未生成</dd>
-              </div>
-              <div>
-                <dt>構図</dt>
-                <dd id="composition-output">未生成</dd>
-              </div>
-              <div>
-                <dt>分類</dt>
-                <dd id="category-output">未生成</dd>
-              </div>
-            </dl>
-          </article>
-        </div>
+      <section class="output" aria-live="polite">
+        <div class="output-header"><p class="eyebrow">PROMPT</p><h2>画像をつくる言葉</h2></div>
+        <pre id="prompt-output">記事の核と画像の型を選ぶと、ここにプロンプトが出ます。</pre>
+        <div class="output-actions"><button id="copy-button" type="button">コピー</button><button id="chatgpt-button" type="button">ChatGPTで開く ↗</button></div>
       </section>
     </main>
-
     <script src="./js/config.js"></script>
     <script src="./js/prompt-engine.js"></script>
     <script src="./js/storage.js"></script>
