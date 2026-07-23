@@ -91,7 +91,7 @@
     };
   }
 
-  function buildPrompt({ title, size, style, textPolicy, styleRules }) {
+  function buildPrompt({ title, size, style, textPolicy, styleRules, referenceAttached = false }) {
     const sizeRule = sizeRules[size];
     const styleRule = styleRules[style];
     const textRule = textRules[textPolicy];
@@ -106,6 +106,7 @@
       interpretation.symbol,
       interpretation.composition,
       interpretation.mood,
+      referenceAttached ? `Use the attached reference image only as art direction for palette, composition, texture, and visual mood. Do not copy its subject; create a new subject from the original blog title` : "",
       sizeRule.prompt,
       ...commonRules,
       textRule.prompt,

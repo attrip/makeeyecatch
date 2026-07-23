@@ -5,11 +5,18 @@
   const charCount = document.getElementById("char-count");
   const styleCards = [...document.querySelectorAll(".style-card")];
   const selectedStyle = document.getElementById("selected-style");
+  const referenceLink = document.getElementById("reference-link");
   const generateButton = document.getElementById("generate-button");
   const promptOutput = document.getElementById("prompt-output");
   const copyButton = document.getElementById("copy-button");
   const chatgptButton = document.getElementById("chatgpt-button");
   let style = "ukiyoe";
+  const referenceImages = {
+    ukiyoe: "./assets/reference-ukiyoe.png",
+    original: "./assets/reference-sharp.png",
+    simple70s: "./assets/reference-paper.png",
+    retro80s: "./assets/reference-poster.png",
+  };
 
   function persist() {
     writeState({ selectedStyle: style, lastTitle: titleInput.value.slice(0, 400) });
@@ -22,6 +29,7 @@
       card.setAttribute("aria-pressed", String(isSelected));
     });
     selectedStyle.textContent = `${baseStyleRules[style].label}を選択中`;
+    referenceLink.href = referenceImages[style];
     persist();
   }
 
@@ -43,6 +51,7 @@
       style,
       textPolicy: "noText",
       styleRules: baseStyleRules,
+      referenceAttached: true,
     });
     promptOutput.textContent = result.prompt;
     persist();
