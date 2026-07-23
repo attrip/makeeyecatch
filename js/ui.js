@@ -2,6 +2,7 @@
   const { baseStyleRules, textRules, buildPrompt } = window.MakeEyecatchPromptEngine;
   const { readState, writeState } = window.MakeEyecatchStorage;
   const titleInput = document.getElementById("title-input");
+  const visualHintInput = document.getElementById("visual-hint-input");
   const charCount = document.getElementById("char-count");
   const styleCards = [...document.querySelectorAll(".style-card")];
   const selectedStyle = document.getElementById("selected-style");
@@ -21,7 +22,7 @@
   };
 
   function persist() {
-    writeState({ selectedStyle: style, lastTitle: titleInput.value.slice(0, 400) });
+    writeState({ selectedStyle: style, lastTitle: titleInput.value.slice(0, 400), visualHint: visualHintInput.value.slice(0, 100) });
   }
 
   function updateStyle() {
@@ -50,6 +51,7 @@
     }
     const result = buildPrompt({
       title,
+      visualHint: visualHintInput.value.trim(),
       size: "wide",
       style,
       textPolicy: "noText",
@@ -78,11 +80,13 @@
   if (saved) {
     style = baseStyleRules[saved.selectedStyle] ? saved.selectedStyle : style;
     titleInput.value = String(saved.lastTitle || "").slice(0, 400);
+    visualHintInput.value = String(saved.visualHint || "").slice(0, 100);
   }
   updateStyle();
   updateCount();
   styleCards.forEach((card) => card.addEventListener("click", () => { style = card.dataset.style; updateStyle(); }));
   titleInput.addEventListener("input", updateCount);
+  visualHintInput.addEventListener("input", persist);
   titleInput.addEventListener("keydown", (event) => { if ((event.metaKey || event.ctrlKey) && event.key === "Enter") generate(); });
   generateButton.addEventListener("click", generate);
   copyButton.addEventListener("click", copyPrompt);

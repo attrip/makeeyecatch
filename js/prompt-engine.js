@@ -91,21 +91,23 @@
     };
   }
 
-  function buildPrompt({ title, size, style, textPolicy, styleRules, referenceAttached = false }) {
+  function buildPrompt({ title, size, style, textPolicy, styleRules, referenceAttached = false, visualHint = "" }) {
     const sizeRule = sizeRules[size];
     const styleRule = styleRules[style];
     const textRule = textRules[textPolicy];
     const interpretation = buildInterpretation(title);
+    const visualMetaphor = String(visualHint || "").trim();
 
     const parts = [
       `Original blog title: "${title}"`,
       `Output as a ${sizeRule.ratio} image`,
       interpretation.decomposition,
-      interpretation.visualSubject,
+      visualMetaphor ? `Primary visual metaphor: "${visualMetaphor}". Make this the one dominant subject. Do not illustrate the blog title literally` : interpretation.visualSubject,
       interpretation.prop,
       interpretation.symbol,
       interpretation.composition,
       interpretation.mood,
+      visualMetaphor ? "Use poetic editorial symbolism and preserve the metaphor's slight strangeness, with no literal charts, numbers, product comparison tables, or explanatory diagram" : "",
       referenceAttached ? `Use the attached reference image only as art direction for palette, composition, texture, and visual mood. Do not copy its subject; create a new subject from the original blog title` : "",
       sizeRule.prompt,
       ...commonRules,
