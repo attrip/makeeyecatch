@@ -6,6 +6,7 @@
   const styleCards = [...document.querySelectorAll(".style-card")];
   const selectedStyle = document.getElementById("selected-style");
   const referenceLink = document.getElementById("reference-link");
+  const outputReferenceLink = document.getElementById("output-reference-link");
   const generateButton = document.getElementById("generate-button");
   const promptOutput = document.getElementById("prompt-output");
   const copyButton = document.getElementById("copy-button");
@@ -31,6 +32,7 @@
     });
     selectedStyle.textContent = `${baseStyleRules[style].label}を選択中`;
     referenceLink.href = referenceImages[style];
+    outputReferenceLink.href = referenceImages[style];
     persist();
   }
 
