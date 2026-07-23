@@ -10,6 +10,7 @@
   const promptOutput = document.getElementById("prompt-output");
   const copyButton = document.getElementById("copy-button");
   const chatgptButton = document.getElementById("chatgpt-button");
+  const copyStatus = document.getElementById("copy-status");
   let style = "ukiyoe";
   const referenceImages = {
     ukiyoe: "./assets/reference-ukiyoe.png",
@@ -63,10 +64,12 @@
     try {
       await navigator.clipboard.writeText(text);
       copyButton.textContent = "コピー済み";
+      copyStatus.textContent = "コピー済み。ChatGPTの入力欄で ⌘V（Windowsは Ctrl+V）してください。";
     } catch {
       copyButton.textContent = "コピーできませんでした";
+      copyStatus.textContent = "コピーできませんでした。もう一度コピーを押してください。";
     }
-    window.setTimeout(() => { copyButton.textContent = "コピー"; }, 1300);
+    window.setTimeout(() => { copyButton.textContent = "プロンプトをコピー"; }, 1300);
   }
 
   const saved = readState();
@@ -81,5 +84,5 @@
   titleInput.addEventListener("keydown", (event) => { if ((event.metaKey || event.ctrlKey) && event.key === "Enter") generate(); });
   generateButton.addEventListener("click", generate);
   copyButton.addEventListener("click", copyPrompt);
-  chatgptButton.addEventListener("click", async () => { await copyPrompt(); window.open("https://chatgpt.com/", "_blank", "noopener,noreferrer"); });
+  chatgptButton.addEventListener("click", async () => { await copyPrompt(); chatgptButton.textContent = "コピー済み。ChatGPTで貼り付ける ↗"; window.open("https://chatgpt.com/", "_blank", "noopener,noreferrer"); });
 })();
